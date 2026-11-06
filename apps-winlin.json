@@ -1,0 +1,156 @@
+[
+ {
+  "slug": "astro",
+  "file": "Astro-Setup.exe",
+  "url": "https://github.com/Blueturboguy07/Astro/releases/download/v0.2.2/Astro-Setup.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "cue",
+  "file": "cue-0.2.14-linux-arm64.AppImage",
+  "url": "https://github.com/Blueturboguy07/cue/releases/download/v0.2.14/cue-0.2.14-linux-arm64.AppImage",
+  "platform": "linux",
+  "runner": "linux-arm64"
+ },
+ {
+  "slug": "cue",
+  "file": "cue-0.2.14-linux-x86_64.AppImage",
+  "url": "https://github.com/Blueturboguy07/cue/releases/download/v0.2.14/cue-0.2.14-linux-x86_64.AppImage",
+  "platform": "linux",
+  "runner": "linux-x64"
+ },
+ {
+  "slug": "cue",
+  "file": "cue-win-x64.exe",
+  "url": "https://github.com/Blueturboguy07/cue/releases/download/v0.2.14/cue-win-x64.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "ghost",
+  "file": "Ghost-0.1.8-win-x64.exe",
+  "url": "https://github.com/Blueturboguy07/ghost-location/releases/download/v0.1.8/Ghost-0.1.8-win-x64.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "iris",
+  "file": "Iris-Setup.exe",
+  "url": "https://github.com/Blueturboguy07/iris/releases/download/iris-v0.9.16/Iris-Setup.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "jobleft",
+  "file": "jobleft_0.1.7_x64-setup.exe",
+  "url": "https://github.com/Blueturboguy07/jobleft/releases/download/v0.1.7/jobleft_0.1.7_x64-setup.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "moodledesk",
+  "file": "Zenith_0.2.2_amd64.AppImage",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_amd64.AppImage",
+  "platform": "linux",
+  "runner": "linux-x64"
+ },
+ {
+  "slug": "moodledesk",
+  "file": "Zenith_0.2.2_amd64.deb",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_amd64.deb",
+  "platform": "linux",
+  "runner": "linux-x64"
+ },
+ {
+  "slug": "moodledesk",
+  "file": "Zenith-0.2.2-1.x86_64.rpm",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith-0.2.2-1.x86_64.rpm",
+  "platform": "linux",
+  "runner": "linux-x64"
+ },
+ {
+  "slug": "moodledesk",
+  "file": "Zenith_0.2.2_x64_en-US.msi",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_x64_en-US.msi",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "moodledesk",
+  "file": "Zenith_0.2.2_x64-setup.exe",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_x64-setup.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "nitroai",
+  "file": "NitroAI-Linux-x86_64.AppImage",
+  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.5/NitroAI-Linux-x86_64.AppImage",
+  "platform": "linux",
+  "runner": "linux-x64"
+ },
+ {
+  "slug": "nitroai",
+  "file": "NitroAI-Setup-Windows.exe",
+  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.5/NitroAI-Setup-Windows.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "publikclip",
+  "file": "publikclip_0.2.7_x64-setup.exe",
+  "url": "https://github.com/Blueturboguy07/publikclip/releases/download/v0.2.7/publikclip_0.2.7_x64-setup.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "simplicity",
+  "file": "Simplicity-Setup-Windows.exe",
+  "url": "https://github.com/Blueturboguy07/Simplicity/releases/download/v0.1.8/Simplicity-Setup-Windows.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "surfcam",
+  "file": "SurfCam-Setup-0.1.1-win-x64.exe",
+  "url": "https://github.com/Blueturboguy07/surfcam/releases/download/v0.1.1/SurfCam-Setup-0.1.1-win-x64.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "voicestudio",
+  "file": "VoiceStudio-0.5.7-linux-x64.AppImage",
+  "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.1/VoiceStudio-0.5.7-linux-x64.AppImage",
+  "platform": "linux",
+  "runner": "linux-x64"
+ },
+ {
+  "slug": "voicestudio",
+  "file": "VoiceStudio-0.5.7-linux-x64.deb",
+  "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.1/VoiceStudio-0.5.7-linux-x64.deb",
+  "platform": "linux",
+  "runner": "linux-x64"
+ },
+ {
+  "slug": "voicestudio",
+  "file": "VoiceStudio-0.5.7-win-arm64.exe",
+  "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.1/VoiceStudio-0.5.7-win-arm64.exe",
+  "platform": "windows",
+  "runner": "windows-arm64"
+ },
+ {
+  "slug": "voicestudio",
+  "file": "VoiceStudio-0.5.7-win-x64.exe",
+  "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.1/VoiceStudio-0.5.7-win-x64.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ },
+ {
+  "slug": "whimprflow",
+  "file": "WhimprFlow_0.2.6_x64-setup.exe",
+  "url": "https://github.com/Blueturboguy07/WhimprFlow/releases/download/v0.2.6/WhimprFlow_0.2.6_x64-setup.exe",
+  "platform": "windows",
+  "runner": "windows-x64"
+ }
+]

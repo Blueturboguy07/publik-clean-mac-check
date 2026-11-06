@@ -17,7 +17,7 @@ while IFS=$'\t' read -r SLUG FILE URL; do
   LOG="$R/$SLUG-$FILE.log"; : > "$LOG"
   D="$(mktemp -d)"; F="$D/$FILE"
   DL=false; INTEGRITY=na; STAPLE_FILE=na; GK_FILE=na; INSTALLED=false; KIND=app; STAPLE_APP=false; GK_APP=false; GK_SOURCE=""
-  OPENED=false; UP=false; SEEN=""; VER=""; DAMAGED=false; NOTE=""; OPENED2=na; SESSION=false; SECS=""; SECS2=""
+  OPENED=false; UP=false; SEEN=""; VER=""; DAMAGED=false; NOTE=""; OPENED2=na; SESSION=false; SECS=""; SECS2=""; SIGNED=false; EVENT_APP=""; EVENT_VER=""; KEYENV=""
   echo "=== $SLUG $FILE $URL" | tee -a "$LOG"
   curl -fsSL --retry 3 -o "$F" "$URL" && DL=true
   if [ "$DL" = true ]; then
@@ -71,7 +71,7 @@ while IFS=$'\t' read -r SLUG FILE URL; do
       launch() {
         : > "$L"; local T0=$SECONDS
         local RUNHOME="$H"; case "$SLUG" in astro|voicestudio) RUNHOME="$HOME";; esac
-        ( cd "$H"; exec env HOME="$RUNHOME" PUBLIK_TELEMETRY_URL="http://127.0.0.1:$PORT/api/v1/telemetry" PUBLIK_API_BASE_URL="http://127.0.0.1:$PORT" PUBLIK_TELEMETRY_DEBUG=1 PUBLIK_TELEMETRY_INTERVAL_SECONDS=20 "$EXE" "$@" ) >"$D/app.out" 2>&1 & AP=$!
+        ( cd "$H"; exec env HOME="$RUNHOME" PUBLIK_TELEMETRY_URL="http://127.0.0.1:$PORT/api/v1/telemetry" PUBLIK_API_BASE_URL="http://127.0.0.1:$PORT" PUBLIK_TELEMETRY_DEBUG=1 PUBLIK_TELEMETRY_INTERVAL_SECONDS=20 ${KEYENV:+PUBLIK_API_KEY=$KEYENV} "$EXE" "$@" ) >"$D/app.out" 2>&1 & AP=$!
         LAUNCH_OPENED=false; LAUNCH_SECS=""
         for i in $(seq 1 "$W"); do
           if grep -q '"event": *"app_opened"' "$L" 2>/dev/null; then LAUNCH_OPENED=true; LAUNCH_SECS=$((SECONDS-T0)); break; fi
@@ -96,19 +96,35 @@ while IFS=$'\t' read -r SLUG FILE URL; do
       launch
       OPENED=$LAUNCH_OPENED; UP=$LAUNCH_UP; SESSION=$LAUNCH_SESSION; SECS=$LAUNCH_SECS
       SEEN="$(grep -a -m1 -E 'app_opened|active_session' "$L" | cut -c1-260)"
+      EVENT_APP="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1]).get("app",""))' "$SEEN" 2>/dev/null)"
+      EVENT_VER="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1]).get("app_version",""))' "$SEEN" 2>/dev/null)"
       if [ "$OPENED" = false ]; then
         echo "--- second launch" >>"$LOG"
         if [ "$SLUG" = astro ]; then launch --no-first-run --no-default-browser-check; else launch; fi
         OPENED2=$LAUNCH_OPENED; SECS2=$LAUNCH_SECS; [ "$LAUNCH_SESSION" = true ] && SESSION=true
         [ -n "$SEEN" ] || SEEN="$(grep -a -m1 -E 'app_opened|active_session' "$L" | cut -c1-260)"
       fi
+      # Signed in: the same build with a made-up publik key. The listener records the Authorization header, and nothing reaches production.
+      echo "--- signed-in launch" >>"$LOG"
+      TESTKEY="pk_test_cleanmac_0123456789abcdef0123456789abcdef"
+      if [ "$SLUG" = astro ]; then
+        # Astro reads only its own "publik API" connection, so this is its real sign-in path.
+        mkdir -p "$HOME/.browseros/simplicity"
+        printf '%s' '{"providers":[{"id":"1","name":"OpenAI","type":"openai","config":{"apiKey":"sk-own-key-must-not-be-sent","baseURL":"https://api.openai.com/v1"}},{"id":"2","name":"publik API","type":"openai","config":{"apiKey":"'"$TESTKEY"'","baseURL":"https://publikhq.com/api/v1"}}]}' > "$HOME/.browseros/simplicity/config.json"
+      else KEYENV="$TESTKEY"; fi
+      : > "$L.auth"
+      launch
+      KEYENV=""
+      grep -q "Bearer $TESTKEY" "$L.auth" 2>/dev/null && SIGNED=true
+      grep -q "sk-own-key" "$L.auth" 2>/dev/null && { SIGNED=false; NOTE="sent a key that is not a publik key"; }
+      [ "$SLUG" = astro ] && rm -f "$HOME/.browseros/simplicity/config.json"
       kill "$LP" 2>/dev/null
       rm -rf "$APP"
     else NOTE="no .app in the file"; fi
   else NOTE="download failed"; fi
   python3 - "$R/results.jsonl" <<PY
 import json,sys
-open(sys.argv[1],"a").write(json.dumps({"slug":"$SLUG","file":"$FILE","arch":"$ARCH","kind":"$KIND","downloaded":$( [ "$DL" = true ] && echo True || echo False),"integrity":"$INTEGRITY","staple_file":"$STAPLE_FILE","gatekeeper_file":"$GK_FILE","installed":$( [ "$INSTALLED" = true ] && echo True || echo False),"staple_app":$( [ "$STAPLE_APP" = true ] && echo True || echo False),"gatekeeper_app":$( [ "$GK_APP" = true ] && echo True || echo False),"gatekeeper_source":"$GK_SOURCE","opened":$( [ "$OPENED" = true ] && echo True || echo False),"opened_second_launch":"$OPENED2","active_session_seen":$( [ "$SESSION" = true ] && echo True || echo False),"secs_to_app_opened":"$SECS","secs_second_launch":"$SECS2","still_up":$( [ "$UP" = true ] && echo True || echo False),"version":"""$VER""","damaged_message":$( [ "$DAMAGED" = true ] && echo True || echo False),"note":"$NOTE"})+"\n")
+open(sys.argv[1],"a").write(json.dumps({"slug":"$SLUG","file":"$FILE","arch":"$ARCH","kind":"$KIND","downloaded":$( [ "$DL" = true ] && echo True || echo False),"integrity":"$INTEGRITY","staple_file":"$STAPLE_FILE","gatekeeper_file":"$GK_FILE","installed":$( [ "$INSTALLED" = true ] && echo True || echo False),"staple_app":$( [ "$STAPLE_APP" = true ] && echo True || echo False),"gatekeeper_app":$( [ "$GK_APP" = true ] && echo True || echo False),"gatekeeper_source":"$GK_SOURCE","opened":$( [ "$OPENED" = true ] && echo True || echo False),"event_app":"$EVENT_APP","event_version":"$EVENT_VER","signed_in_seen":$( [ "$SIGNED" = true ] && echo True || echo False),"opened_second_launch":"$OPENED2","active_session_seen":$( [ "$SESSION" = true ] && echo True || echo False),"secs_to_app_opened":"$SECS","secs_second_launch":"$SECS2","still_up":$( [ "$UP" = true ] && echo True || echo False),"version":"""$VER""","damaged_message":$( [ "$DAMAGED" = true ] && echo True || echo False),"note":"$NOTE"})+"\n")
 PY
   tail -1 "$R/results.jsonl"
   rm -rf "$D"
