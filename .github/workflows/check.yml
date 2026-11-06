@@ -1,0 +1,37 @@
+name: clean Mac check
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "One listing slug (empty = every file)"
+        required: false
+        default: ""
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: macos-15, arch: arm64 }
+          - { os: macos-15-intel, arch: x64 }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block publikhq.com, so a test can not touch production
+        run: |
+          echo "127.0.0.1 publikhq.com www.publikhq.com" | sudo tee -a /etc/hosts
+          sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder || true
+      - name: Gatekeeper is on (negative control)
+        run: bash control.sh
+      - name: Download, install and open every file
+        run: bash check.sh apps.json ${{ matrix.arch }} "${{ inputs.only }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.arch }}
+          path: results

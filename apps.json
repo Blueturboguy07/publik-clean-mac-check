@@ -1,0 +1,338 @@
+[
+ {
+  "slug": "artcraft",
+  "file": "artcraft-0.42.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/artcraft/releases/download/v0.42.0-publik.4/artcraft-0.42.0-macos-universal.dmg",
+  "tag": "v0.42.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "astro",
+  "file": "Astro.dmg",
+  "url": "https://github.com/Blueturboguy07/Astro/releases/download/v0.2.2/Astro.dmg",
+  "tag": "v0.2.2",
+  "runner": "arm64"
+ },
+ {
+  "slug": "bettercast",
+  "file": "BetterCast.dmg",
+  "url": "https://github.com/Blueturboguy07/BetterCast/releases/download/v24-publik.1/BetterCast.dmg",
+  "tag": "v24-publik.1",
+  "runner": "arm64"
+ },
+ {
+  "slug": "cadcraft",
+  "file": "cadcraft-0.9.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.9.0-publik.4/cadcraft-0.9.0-macos-universal.dmg",
+  "tag": "v0.9.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "cadcraft",
+  "file": "cadcraft-cli-0.9.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.9.0-publik.4/cadcraft-cli-0.9.0-macos-universal.zip",
+  "tag": "v0.9.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "craft-launcher",
+  "file": "artcraft-launcher-0.5.1-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/craft-launcher/releases/download/v0.5.1-publik.4/artcraft-launcher-0.5.1-macos-universal.dmg",
+  "tag": "v0.5.1-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "cue",
+  "file": "cue-0.2.14-mac-arm64.zip",
+  "url": "https://github.com/Blueturboguy07/cue/releases/download/v0.2.14/cue-0.2.14-mac-arm64.zip",
+  "tag": "v0.2.14",
+  "runner": "arm64"
+ },
+ {
+  "slug": "cue",
+  "file": "cue-0.2.14-mac-x64.zip",
+  "url": "https://github.com/Blueturboguy07/cue/releases/download/v0.2.14/cue-0.2.14-mac-x64.zip",
+  "tag": "v0.2.14",
+  "runner": "x64"
+ },
+ {
+  "slug": "deckcraft",
+  "file": "deckcraft-0.8.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.8.0-publik.4/deckcraft-0.8.0-macos-universal.dmg",
+  "tag": "v0.8.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "deckcraft",
+  "file": "deckcraft-cli-0.8.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.8.0-publik.4/deckcraft-cli-0.8.0-macos-universal.zip",
+  "tag": "v0.8.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "designcraft",
+  "file": "designcraft-0.9.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.4/designcraft-0.9.0-macos-universal.dmg",
+  "tag": "v0.9.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "designcraft",
+  "file": "designcraft-cli-0.9.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.4/designcraft-cli-0.9.0-macos-universal.zip",
+  "tag": "v0.9.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "effectcraft",
+  "file": "effectcraft-0.12.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.12.0-publik.4/effectcraft-0.12.0-macos-universal.dmg",
+  "tag": "v0.12.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "effectcraft",
+  "file": "effectcraft-cli-0.12.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.12.0-publik.4/effectcraft-cli-0.12.0-macos-universal.zip",
+  "tag": "v0.12.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "figcraft",
+  "file": "figcraft-0.7.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.7.0-publik.4/figcraft-0.7.0-macos-universal.dmg",
+  "tag": "v0.7.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "figcraft",
+  "file": "figcraft-cli-0.7.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.7.0-publik.4/figcraft-cli-0.7.0-macos-universal.zip",
+  "tag": "v0.7.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "filmcraft",
+  "file": "filmcraft-0.9.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.9.0-publik.4/filmcraft-0.9.0-macos-universal.dmg",
+  "tag": "v0.9.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "filmcraft",
+  "file": "filmcraft-cli-0.9.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.9.0-publik.4/filmcraft-cli-0.9.0-macos-universal.zip",
+  "tag": "v0.9.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "ghost",
+  "file": "Ghost-0.1.8-mac-arm64.dmg",
+  "url": "https://github.com/Blueturboguy07/ghost-location/releases/download/v0.1.8/Ghost-0.1.8-mac-arm64.dmg",
+  "tag": "v0.1.8",
+  "runner": "arm64"
+ },
+ {
+  "slug": "ghost",
+  "file": "Ghost-0.1.8-mac-arm64.zip",
+  "url": "https://github.com/Blueturboguy07/ghost-location/releases/download/v0.1.8/Ghost-0.1.8-mac-arm64.zip",
+  "tag": "v0.1.8",
+  "runner": "arm64"
+ },
+ {
+  "slug": "ghost",
+  "file": "Ghost-0.1.8-mac-x64.dmg",
+  "url": "https://github.com/Blueturboguy07/ghost-location/releases/download/v0.1.8/Ghost-0.1.8-mac-x64.dmg",
+  "tag": "v0.1.8",
+  "runner": "x64"
+ },
+ {
+  "slug": "ghost",
+  "file": "Ghost-0.1.8-mac-x64.zip",
+  "url": "https://github.com/Blueturboguy07/ghost-location/releases/download/v0.1.8/Ghost-0.1.8-mac-x64.zip",
+  "tag": "v0.1.8",
+  "runner": "x64"
+ },
+ {
+  "slug": "gridcraft",
+  "file": "gridcraft-0.8.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.8.0-publik.5/gridcraft-0.8.0-macos-universal.dmg",
+  "tag": "v0.8.0-publik.5",
+  "runner": "arm64"
+ },
+ {
+  "slug": "gridcraft",
+  "file": "gridcraft-cli-0.8.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.8.0-publik.5/gridcraft-cli-0.8.0-macos-universal.zip",
+  "tag": "v0.8.0-publik.5",
+  "runner": "arm64"
+ },
+ {
+  "slug": "gspot",
+  "file": "GSpot_0.1.1_aarch64.dmg",
+  "url": "https://github.com/Blueturboguy07/gspot/releases/download/v0.1.1/GSpot_0.1.1_aarch64.dmg",
+  "tag": "v0.1.1",
+  "runner": "arm64"
+ },
+ {
+  "slug": "iris",
+  "file": "Iris-assistant.dmg",
+  "url": "https://github.com/Blueturboguy07/iris/releases/download/iris-v0.9.16/Iris-assistant.dmg",
+  "tag": "iris-v0.9.16",
+  "runner": "arm64"
+ },
+ {
+  "slug": "jobleft",
+  "file": "jobleft_0.1.7_aarch64.dmg",
+  "url": "https://github.com/Blueturboguy07/jobleft/releases/download/v0.1.7/jobleft_0.1.7_aarch64.dmg",
+  "tag": "v0.1.7",
+  "runner": "arm64"
+ },
+ {
+  "slug": "lidless",
+  "file": "Lidless-0.1.5.dmg",
+  "url": "https://github.com/Blueturboguy07/Lidless/releases/download/v0.1.5/Lidless-0.1.5.dmg",
+  "tag": "v0.1.5",
+  "runner": "arm64"
+ },
+ {
+  "slug": "lightcraft",
+  "file": "lightcraft-0.9.1-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.9.1-publik.4/lightcraft-0.9.1-macos-universal.dmg",
+  "tag": "v0.9.1-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "lightcraft",
+  "file": "lightcraft-cli-0.9.1-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.9.1-publik.4/lightcraft-cli-0.9.1-macos-universal.zip",
+  "tag": "v0.9.1-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "moodledesk",
+  "file": "Zenith_0.2.2_universal.dmg",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_universal.dmg",
+  "tag": "v0.2.2-publik.1",
+  "runner": "arm64"
+ },
+ {
+  "slug": "nitroai",
+  "file": "NitroAI-mac-arm64.dmg",
+  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.5/NitroAI-mac-arm64.dmg",
+  "tag": "v0.2.5",
+  "runner": "arm64"
+ },
+ {
+  "slug": "nitroai",
+  "file": "NitroAI-mac-x64.dmg",
+  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.5/NitroAI-mac-x64.dmg",
+  "tag": "v0.2.5",
+  "runner": "x64"
+ },
+ {
+  "slug": "pdfcraft",
+  "file": "pdfcraft-0.9.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.5/pdfcraft-0.9.0-macos-universal.dmg",
+  "tag": "v0.9.0-publik.5",
+  "runner": "arm64"
+ },
+ {
+  "slug": "pdfcraft",
+  "file": "pdfcraft-cli-0.9.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.5/pdfcraft-cli-0.9.0-macos-universal.zip",
+  "tag": "v0.9.0-publik.5",
+  "runner": "arm64"
+ },
+ {
+  "slug": "photocraft",
+  "file": "photocraft-0.10.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.10.0-publik.4/photocraft-0.10.0-macos-universal.dmg",
+  "tag": "v0.10.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "photocraft",
+  "file": "photocraft-cli-0.10.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.10.0-publik.4/photocraft-cli-0.10.0-macos-universal.zip",
+  "tag": "v0.10.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "plantgpt",
+  "file": "PlantGPT_aarch64.dmg",
+  "url": "https://github.com/Blueturboguy07/plantgpt/releases/download/v0.1.1/PlantGPT_aarch64.dmg",
+  "tag": "v0.1.1",
+  "runner": "arm64"
+ },
+ {
+  "slug": "publikclip",
+  "file": "publikclip_0.2.7_aarch64.dmg",
+  "url": "https://github.com/Blueturboguy07/publikclip/releases/download/v0.2.7/publikclip_0.2.7_aarch64.dmg",
+  "tag": "v0.2.7",
+  "runner": "arm64"
+ },
+ {
+  "slug": "simplicity",
+  "file": "Simplicity-mac-arm64.dmg",
+  "url": "https://github.com/Blueturboguy07/Simplicity/releases/download/v0.1.8/Simplicity-mac-arm64.dmg",
+  "tag": "v0.1.8",
+  "runner": "arm64"
+ },
+ {
+  "slug": "soundcraft",
+  "file": "soundcraft-0.9.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.9.0-publik.4/soundcraft-0.9.0-macos-universal.dmg",
+  "tag": "v0.9.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "soundcraft",
+  "file": "soundcraft-cli-0.9.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.9.0-publik.4/soundcraft-cli-0.9.0-macos-universal.zip",
+  "tag": "v0.9.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "surfcam",
+  "file": "SurfCam-0.1.1-mac-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/surfcam/releases/download/v0.1.1/SurfCam-0.1.1-mac-universal.dmg",
+  "tag": "v0.1.1",
+  "runner": "arm64"
+ },
+ {
+  "slug": "vectorcraft",
+  "file": "vectorcraft-0.13.1-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.13.1-publik.4/vectorcraft-0.13.1-macos-universal.dmg",
+  "tag": "v0.13.1-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "vectorcraft",
+  "file": "vectorcraft-cli-0.13.1-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.13.1-publik.4/vectorcraft-cli-0.13.1-macos-universal.zip",
+  "tag": "v0.13.1-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "whimprflow",
+  "file": "WhimprFlow_0.2.6_aarch64.dmg",
+  "url": "https://github.com/Blueturboguy07/WhimprFlow/releases/download/v0.2.6/WhimprFlow_0.2.6_aarch64.dmg",
+  "tag": "v0.2.6",
+  "runner": "arm64"
+ },
+ {
+  "slug": "wordcraft",
+  "file": "wordcraft-0.8.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.8.0-publik.4/wordcraft-0.8.0-macos-universal.dmg",
+  "tag": "v0.8.0-publik.4",
+  "runner": "arm64"
+ },
+ {
+  "slug": "wordcraft",
+  "file": "wordcraft-cli-0.8.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.8.0-publik.4/wordcraft-cli-0.8.0-macos-universal.zip",
+  "tag": "v0.8.0-publik.4",
+  "runner": "arm64"
+ }
+]
