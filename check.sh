@@ -10,14 +10,14 @@ stapled() { local i; for i in 1 2 3 4 5; do xcrun stapler validate "$1" >/dev/nu
 python3 - "$LIST" "$ARCH" "$ONLY" > work.tsv <<'PY'
 import json,sys
 for a in json.load(open(sys.argv[1])):
-    if a["runner"]==sys.argv[2] and (not sys.argv[3] or a["slug"]==sys.argv[3]):
+    if a["runner"]==sys.argv[2] and (not sys.argv[3] or a["slug"] in sys.argv[3].split(",")):
         print("\t".join([a["slug"],a["file"],a["url"]]))
 PY
 while IFS=$'\t' read -r SLUG FILE URL; do
   LOG="$R/$SLUG-$FILE.log"; : > "$LOG"
   D="$(mktemp -d)"; F="$D/$FILE"
   DL=false; INTEGRITY=na; STAPLE_FILE=na; GK_FILE=na; INSTALLED=false; KIND=app; STAPLE_APP=false; GK_APP=false; GK_SOURCE=""
-  OPENED=false; UP=false; SEEN=""; VER=""; DAMAGED=false; NOTE=""
+  OPENED=false; UP=false; SEEN=""; VER=""; DAMAGED=false; NOTE=""; OPENED2=na; SESSION=false; SECS=""; SECS2=""
   echo "=== $SLUG $FILE $URL" | tee -a "$LOG"
   curl -fsSL --retry 3 -o "$F" "$URL" && DL=true
   if [ "$DL" = true ]; then
@@ -45,8 +45,8 @@ while IFS=$'\t' read -r SLUG FILE URL; do
       BIN=""; while IFS= read -r -d '' b; do file -b "$b" | grep -q "Mach-O" && { BIN="$b"; break; }; done < <(find "$X" -type f -print0)
       if [ -n "$BIN" ]; then
         xattr -w com.apple.quarantine "$Q" "$BIN"
-        O="$(spctl -a -t install -vv "$F" 2>&1)"; echo "$O" >>"$LOG"
-        echo "$O" | grep -q "Notarized Developer ID" && GK_APP=true; GK_SOURCE="$(echo "$O" | grep -o 'source=.*' | head -1)"
+        O="$(spctl -a -t exec -vv "$BIN" 2>&1)"; echo "$O" >>"$LOG"
+        echo "$O" | grep -q "source=Notarized Developer ID" && GK_APP=true; GK_SOURCE="$(echo "$O" | grep -o 'source=.*' | head -1)"
         O="$(codesign --verify -R=notarized --check-notarization "$BIN" 2>&1)" && STAPLE_APP=true; echo "$O" >>"$LOG"
         O="$("$BIN" --version 2>&1)"; RC=$?; echo "$O" | head -5 >>"$LOG"; VER="$(echo "$O" | head -1 | cut -c1-60)"
         [ $RC -eq 0 ] && { OPENED=true; UP=true; }; INSTALLED=true
@@ -63,28 +63,50 @@ while IFS=$'\t' read -r SLUG FILE URL; do
       EXE="$APP/Contents/MacOS/$(defaults read "$APP/Contents/Info" CFBundleExecutable)"
       PORT=$((20000 + RANDOM % 20000)); L="$D/listener.jsonl"; : > "$L"
       python3 "$ROOT/listener.py" "$PORT" "$L" >>"$LOG" 2>&1 & LP=$!
-      sleep 1
+      for i in $(seq 1 40); do [ "$(curl -s -m 2 -o /dev/null -w '%{http_code}' -X POST "http://127.0.0.1:$PORT/ready")" = 204 ] && break; sleep 0.5; done
+      echo "listener ready after $i tries" >>"$LOG"
       H="$D/home"; mkdir -p "$H"
-      W=45; [ "$SLUG" = astro ] && W=90
-      ( cd "$H"; exec env HOME="$H" PUBLIK_TELEMETRY_URL="http://127.0.0.1:$PORT/api/v1/telemetry" PUBLIK_API_BASE_URL="http://127.0.0.1:$PORT" PUBLIK_TELEMETRY_DEBUG=1 "$EXE" ) >"$D/app.out" 2>&1 & AP=$!
-      for i in $(seq 1 "$W"); do
-        if grep -q '"event": *"app_opened"' "$L" 2>/dev/null; then OPENED=true; break; fi
-        kill -0 "$AP" 2>/dev/null || break
-        sleep 1
-      done
-      sleep 4
-      kill -0 "$AP" 2>/dev/null && UP=true
-      SEEN="$(head -1 "$L" | cut -c1-260)"
-      pkill -TERM -f "$APP/" 2>/dev/null; sleep 2; pkill -KILL -f "$APP/" 2>/dev/null
+      W=45; [ "$ARCH" = x64 ] && W=90; [ "$SLUG" = astro ] && W=240
+      # launch <extra args...>: runs the app, waits for app_opened. The interval env brings active_session early, so a lost first event still shows the client can reach the listener.
+      launch() {
+        : > "$L"; local T0=$SECONDS
+        ( cd "$H"; exec env HOME="$H" PUBLIK_TELEMETRY_URL="http://127.0.0.1:$PORT/api/v1/telemetry" PUBLIK_API_BASE_URL="http://127.0.0.1:$PORT" PUBLIK_TELEMETRY_DEBUG=1 PUBLIK_TELEMETRY_INTERVAL_SECONDS=20 "$EXE" "$@" ) >"$D/app.out" 2>&1 & AP=$!
+        LAUNCH_OPENED=false; LAUNCH_SECS=""
+        for i in $(seq 1 "$W"); do
+          if grep -q '"event": *"app_opened"' "$L" 2>/dev/null; then LAUNCH_OPENED=true; LAUNCH_SECS=$((SECONDS-T0)); break; fi
+          kill -0 "$AP" 2>/dev/null || break
+          sleep 1
+        done
+        sleep 4
+        LAUNCH_UP=false; kill -0 "$AP" 2>/dev/null && LAUNCH_UP=true
+        LAUNCH_SESSION=false; grep -q '"event": *"active_session"' "$L" 2>/dev/null && LAUNCH_SESSION=true
+        if [ "$LAUNCH_OPENED" = false ]; then
+          echo "--- no app_opened after ${W}s: what runs now" >>"$LOG"
+          ps -axo pid,ppid,etime,command | grep -a -F "$APP/" | grep -v grep | cut -c1-200 | head -12 >>"$LOG"
+          screencapture -x "$R/$SLUG-$FILE-launch$1.png" 2>>"$LOG" || true
+          tail -20 "$D/app.out" | cut -c1-240 >>"$LOG"
+        fi
+        grep -a -i -E "publik-telemetry|damaged|killed" "$D/app.out" | head -6 >>"$LOG"
+        grep -a -qi "damaged" "$D/app.out" && DAMAGED=true
+        pkill -TERM -f "$APP/" 2>/dev/null; sleep 2; pkill -KILL -f "$APP/" 2>/dev/null; sleep 1
+      }
+      echo "--- first launch" >>"$LOG"
+      launch
+      OPENED=$LAUNCH_OPENED; UP=$LAUNCH_UP; SESSION=$LAUNCH_SESSION; SECS=$LAUNCH_SECS
+      SEEN="$(grep -a -m1 -E 'app_opened|active_session' "$L" | cut -c1-260)"
+      if [ "$OPENED" = false ]; then
+        echo "--- second launch" >>"$LOG"
+        if [ "$SLUG" = astro ]; then launch --no-first-run --no-default-browser-check; else launch; fi
+        OPENED2=$LAUNCH_OPENED; SECS2=$LAUNCH_SECS; [ "$LAUNCH_SESSION" = true ] && SESSION=true
+        [ -n "$SEEN" ] || SEEN="$(grep -a -m1 -E 'app_opened|active_session' "$L" | cut -c1-260)"
+      fi
       kill "$LP" 2>/dev/null
-      cat "$D/app.out" | grep -a -i -E "publik-telemetry|damaged|killed" | head -6 >>"$LOG"
-      grep -a -qi "damaged" "$D/app.out" && DAMAGED=true
       rm -rf "$APP"
     else NOTE="no .app in the file"; fi
   else NOTE="download failed"; fi
   python3 - "$R/results.jsonl" <<PY
 import json,sys
-open(sys.argv[1],"a").write(json.dumps({"slug":"$SLUG","file":"$FILE","arch":"$ARCH","kind":"$KIND","downloaded":$( [ "$DL" = true ] && echo True || echo False),"integrity":"$INTEGRITY","staple_file":"$STAPLE_FILE","gatekeeper_file":"$GK_FILE","installed":$( [ "$INSTALLED" = true ] && echo True || echo False),"staple_app":$( [ "$STAPLE_APP" = true ] && echo True || echo False),"gatekeeper_app":$( [ "$GK_APP" = true ] && echo True || echo False),"gatekeeper_source":"$GK_SOURCE","opened":$( [ "$OPENED" = true ] && echo True || echo False),"still_up":$( [ "$UP" = true ] && echo True || echo False),"version":"""$VER""","damaged_message":$( [ "$DAMAGED" = true ] && echo True || echo False),"note":"$NOTE"})+"\n")
+open(sys.argv[1],"a").write(json.dumps({"slug":"$SLUG","file":"$FILE","arch":"$ARCH","kind":"$KIND","downloaded":$( [ "$DL" = true ] && echo True || echo False),"integrity":"$INTEGRITY","staple_file":"$STAPLE_FILE","gatekeeper_file":"$GK_FILE","installed":$( [ "$INSTALLED" = true ] && echo True || echo False),"staple_app":$( [ "$STAPLE_APP" = true ] && echo True || echo False),"gatekeeper_app":$( [ "$GK_APP" = true ] && echo True || echo False),"gatekeeper_source":"$GK_SOURCE","opened":$( [ "$OPENED" = true ] && echo True || echo False),"opened_second_launch":"$OPENED2","active_session_seen":$( [ "$SESSION" = true ] && echo True || echo False),"secs_to_app_opened":"$SECS","secs_second_launch":"$SECS2","still_up":$( [ "$UP" = true ] && echo True || echo False),"version":"""$VER""","damaged_message":$( [ "$DAMAGED" = true ] && echo True || echo False),"note":"$NOTE"})+"\n")
 PY
   tail -1 "$R/results.jsonl"
   rm -rf "$D"

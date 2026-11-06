@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       only:
-        description: "One listing slug (empty = every file)"
+        description: "Listing slugs, comma-separated (empty = every file)"
         required: false
         default: ""
   push:
