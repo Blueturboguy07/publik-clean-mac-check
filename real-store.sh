@@ -16,8 +16,8 @@ store_key() {
     cue) for d in cue Cue MicrosoftEdgeUpdate; do mkdir -p "$AS/$d"; printf '{"apiKeys":{"publik":"%s"},"publik":{"revoked":false}}' "$KEY" > "$AS/$d/cue-data.json"; done; STORE="userData/cue-data.json, apiKeys.publik";;
     publikclip) mkdir -p "$HOME/.publikclip"; printf '{"publik":{"key":"%s"}}' "$KEY" > "$HOME/.publikclip/secrets.json"; chmod 600 "$HOME/.publikclip/secrets.json"; STORE="~/.publikclip/secrets.json, publik.key";;
     simplicity) mkdir -p "$AS/Simplicity/data"; printf '{"version":1,"modelProviders":[{"id":"1","name":"publik API","type":"publik","config":{"apiKey":"%s","baseURL":"http://127.0.0.1:9/api/v1"}}]}' "$KEY" > "$AS/Simplicity/data/config.json"; STORE="userData/data/config.json, modelProviders[type=publik]";;
-    whimprflow) security add-generic-password -U -s com.whimpr.whimprflow -a publik_api_key -w "$KEY" -A; STORE="Keychain com.whimpr.whimprflow / publik_api_key";;
-    iris) security add-generic-password -U -s com.publikhq.iris -a publik-api-key -w "$KEY" -A; STORE="Keychain com.publikhq.iris / publik-api-key";;
+    whimprflow) security add-generic-password -U -s com.whimpr.whimprflow -a publik_api_key -w "$KEY" -A; security set-generic-password-partition-list -S "apple-tool:,apple:,teamid:R5R3ZS54LV" -k test -s com.whimpr.whimprflow -a publik_api_key rs.keychain >>"$LOG" 2>&1; STORE="Keychain com.whimpr.whimprflow / publik_api_key";;
+    iris) security add-generic-password -U -s com.publikhq.iris -a publik-api-key -w "$KEY" -A; security set-generic-password-partition-list -S "apple-tool:,apple:,teamid:R5R3ZS54LV" -k test -s com.publikhq.iris -a publik-api-key rs.keychain >>"$LOG" 2>&1; STORE="Keychain com.publikhq.iris / publik-api-key";;
     jobleft) SVC="jobleft-$(printf '%s' "$AS/jobleft" | shasum -a 256 | cut -c1-12)"; B64="$(printf '%s' "$KEY" | base64)"; security add-generic-password -U -a jobleft.publik.key -s "$SVC" -l "$SVC" -w "b64:$B64" -A; STORE="Keychain $SVC / jobleft.publik.key, b64";;
     nitroai|gspot|artcraft) cred "$1"; STORE="publik/apps/$1.json, key";;
   esac
