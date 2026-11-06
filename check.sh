@@ -49,8 +49,34 @@ while IFS=$'\t' read -r SLUG FILE URL; do
         O="$(codesign --verify -R=notarized --check-notarization "$BIN" 2>&1)" && STAPLE_APP=true; echo "$O" >>"$LOG"
         if [ "$STAPLE_APP" = true ] && echo "$SP" | grep -q "the code is valid" && echo "$SP" | grep -q "R5R3ZS54LV"; then GK_APP=true; GK_SOURCE="source=notarized, codesign --check-notarization"; fi
         O="$("$BIN" --version 2>&1)"; RC=$?; echo "$O" | head -5 >>"$LOG"; VER="$(echo "$O" | head -1 | cut -c1-60)"
-        [ $RC -eq 0 ] && { OPENED=true; UP=true; }; INSTALLED=true
+        [ $RC -eq 0 ] && UP=true; INSTALLED=true
         echo "$O" | grep -qi "damaged" && DAMAGED=true
+        # The tool's usage counts: a real command, quarantine flag on, local listener. The tool ends at once; a detached copy sends.
+        PORT=$((20000 + RANDOM % 20000)); L="$D/listener.jsonl"; : > "$L"
+        python3 "$ROOT/listener.py" "$PORT" "$L" >>"$LOG" 2>&1 & LP=$!
+        for i in $(seq 1 40); do [ "$(curl -s -m 2 -o /dev/null -w '%{http_code}' -X POST "http://127.0.0.1:$PORT/ready")" = 204 ] && break; sleep 0.5; done
+        CLIENV="PUBLIK_TELEMETRY_URL=http://127.0.0.1:$PORT/api/v1/telemetry"
+        H="$D/home-silent"; mkdir -p "$H"
+        ( cd "$H"; env HOME="$H" "$CLIENV" "$BIN" --version ) >>"$LOG" 2>&1; sleep 2
+        if [ -s "$L" ]; then NOTE="--version sent an event"; fi
+        cli_run() { # cli_run <home>: runs a real command and waits for the event
+          : > "$L"; : > "$L.auth"; local T0=$SECONDS
+          ( cd "$1"; env HOME="$1" "$CLIENV" PUBLIK_TELEMETRY_DEBUG=1 "$BIN" __publik_check__ ) >>"$LOG" 2>&1
+          CLI_SECS=""; for i in $(seq 1 60); do grep -q '"event": *"app_opened"' "$L" 2>/dev/null && { CLI_SECS=$((SECONDS-T0)); break; }; sleep 1; done; sleep 1
+        }
+        echo "--- tool: signed out" >>"$LOG"
+        H="$D/home"; mkdir -p "$H"; cli_run "$H"
+        if grep -q '"event": *"app_opened"' "$L"; then OPENED=true; SECS="$CLI_SECS"; fi
+        SEEN="$(grep -a -m1 'app_opened' "$L" | cut -c1-260)"; echo "$SEEN" >>"$LOG"
+        EVENT_APP="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1]).get("app",""))' "$SEEN" 2>/dev/null)"
+        EVENT_VER="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1]).get("app_version",""))' "$SEEN" 2>/dev/null)"
+        echo "--- tool: signed in" >>"$LOG"
+        TESTKEY="pk_test_cleanmac_0123456789abcdef0123456789abcdef"
+        H="$D/home-key"; mkdir -p "$H/Library/Application Support/publik/apps"
+        printf '{"key": "%s"}' "$TESTKEY" > "$H/Library/Application Support/publik/apps/$SLUG.json"
+        cli_run "$H"
+        grep -q "Bearer $TESTKEY" "$L.auth" 2>/dev/null && SIGNED=true
+        kill "$LP" 2>/dev/null
       else NOTE="no Mach-O in the zip"; fi
     elif [ -n "$APP" ]; then
       INSTALLED=true

@@ -1,0 +1,27 @@
+name: real store check
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Listing slugs, comma-separated (empty = all nine)"
+        required: false
+        default: ""
+permissions:
+  contents: read
+jobs:
+  real-store:
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block publikhq.com, so a test can not touch production
+        run: |
+          echo "127.0.0.1 publikhq.com www.publikhq.com" | sudo tee -a /etc/hosts
+          sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder || true
+      - name: A key in each app's real store, then the public build
+        run: bash real-store.sh apps.json "${{ inputs.only }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-real-store
+          path: results
