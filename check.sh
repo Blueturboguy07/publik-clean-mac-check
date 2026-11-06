@@ -45,9 +45,9 @@ while IFS=$'\t' read -r SLUG FILE URL; do
       BIN=""; while IFS= read -r -d '' b; do file -b "$b" | grep -q "Mach-O" && { BIN="$b"; break; }; done < <(find "$X" -type f -print0)
       if [ -n "$BIN" ]; then
         xattr -w com.apple.quarantine "$Q" "$BIN"
-        O="$(spctl -a -t exec -vv "$BIN" 2>&1)"; echo "$O" >>"$LOG"
-        echo "$O" | grep -q "source=Notarized Developer ID" && GK_APP=true; GK_SOURCE="$(echo "$O" | grep -o 'source=.*' | head -1)"
+        SP="$(spctl -a -t exec -vv "$BIN" 2>&1)"; echo "$SP" >>"$LOG"
         O="$(codesign --verify -R=notarized --check-notarization "$BIN" 2>&1)" && STAPLE_APP=true; echo "$O" >>"$LOG"
+        if [ "$STAPLE_APP" = true ] && echo "$SP" | grep -q "the code is valid" && echo "$SP" | grep -q "R5R3ZS54LV"; then GK_APP=true; GK_SOURCE="source=notarized, codesign --check-notarization"; fi
         O="$("$BIN" --version 2>&1)"; RC=$?; echo "$O" | head -5 >>"$LOG"; VER="$(echo "$O" | head -1 | cut -c1-60)"
         [ $RC -eq 0 ] && { OPENED=true; UP=true; }; INSTALLED=true
         echo "$O" | grep -qi "damaged" && DAMAGED=true
@@ -70,7 +70,8 @@ while IFS=$'\t' read -r SLUG FILE URL; do
       # launch <extra args...>: runs the app, waits for app_opened. The interval env brings active_session early, so a lost first event still shows the client can reach the listener.
       launch() {
         : > "$L"; local T0=$SECONDS
-        ( cd "$H"; exec env HOME="$H" PUBLIK_TELEMETRY_URL="http://127.0.0.1:$PORT/api/v1/telemetry" PUBLIK_API_BASE_URL="http://127.0.0.1:$PORT" PUBLIK_TELEMETRY_DEBUG=1 PUBLIK_TELEMETRY_INTERVAL_SECONDS=20 "$EXE" "$@" ) >"$D/app.out" 2>&1 & AP=$!
+        local RUNHOME="$H"; [ "$SLUG" = astro ] && RUNHOME="$HOME"
+        ( cd "$H"; exec env HOME="$RUNHOME" PUBLIK_TELEMETRY_URL="http://127.0.0.1:$PORT/api/v1/telemetry" PUBLIK_API_BASE_URL="http://127.0.0.1:$PORT" PUBLIK_TELEMETRY_DEBUG=1 PUBLIK_TELEMETRY_INTERVAL_SECONDS=20 "$EXE" "$@" ) >"$D/app.out" 2>&1 & AP=$!
         LAUNCH_OPENED=false; LAUNCH_SECS=""
         for i in $(seq 1 "$W"); do
           if grep -q '"event": *"app_opened"' "$L" 2>/dev/null; then LAUNCH_OPENED=true; LAUNCH_SECS=$((SECONDS-T0)); break; fi
