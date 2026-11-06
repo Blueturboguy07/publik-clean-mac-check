@@ -544,5 +544,33 @@
   "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.8.0-publik.4/wordcraft-cli-0.8.0-macos-universal.zip",
   "tag": "v0.8.0-publik.4",
   "runner": "x64"
+ },
+ {
+  "slug": "voicestudio",
+  "file": "VoiceStudio-0.5.7-mac-arm64.dmg",
+  "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.1/VoiceStudio-0.5.7-mac-arm64.dmg",
+  "tag": "v0.5.7-publik.1",
+  "runner": "arm64"
+ },
+ {
+  "slug": "voicestudio",
+  "file": "VoiceStudio-0.5.7-mac-arm64.zip",
+  "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.1/VoiceStudio-0.5.7-mac-arm64.zip",
+  "tag": "v0.5.7-publik.1",
+  "runner": "arm64"
+ },
+ {
+  "slug": "voicestudio",
+  "file": "VoiceStudio-0.5.7-mac-x64.dmg",
+  "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.1/VoiceStudio-0.5.7-mac-x64.dmg",
+  "tag": "v0.5.7-publik.1",
+  "runner": "x64"
+ },
+ {
+  "slug": "voicestudio",
+  "file": "VoiceStudio-0.5.7-mac-x64.zip",
+  "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.1/VoiceStudio-0.5.7-mac-x64.zip",
+  "tag": "v0.5.7-publik.1",
+  "runner": "x64"
  }
 ]
