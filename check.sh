@@ -70,7 +70,7 @@ while IFS=$'\t' read -r SLUG FILE URL; do
       # launch <extra args...>: runs the app, waits for app_opened. The interval env brings active_session early, so a lost first event still shows the client can reach the listener.
       launch() {
         : > "$L"; local T0=$SECONDS
-        local RUNHOME="$H"; [ "$SLUG" = astro ] && RUNHOME="$HOME"
+        local RUNHOME="$H"; case "$SLUG" in astro|voicestudio) RUNHOME="$HOME";; esac
         ( cd "$H"; exec env HOME="$RUNHOME" PUBLIK_TELEMETRY_URL="http://127.0.0.1:$PORT/api/v1/telemetry" PUBLIK_API_BASE_URL="http://127.0.0.1:$PORT" PUBLIK_TELEMETRY_DEBUG=1 PUBLIK_TELEMETRY_INTERVAL_SECONDS=20 "$EXE" "$@" ) >"$D/app.out" 2>&1 & AP=$!
         LAUNCH_OPENED=false; LAUNCH_SECS=""
         for i in $(seq 1 "$W"); do
