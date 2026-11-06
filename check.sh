@@ -83,13 +83,14 @@ while IFS=$'\t' read -r SLUG FILE URL; do
         if [ "$LAUNCH_OPENED" = false ]; then
           echo "--- no app_opened after ${W}s: what runs now" >>"$LOG"
           ps -axo pid,ppid,etime,command | grep -a -F "$APP/" | grep -v grep | cut -c1-200 | head -12 >>"$LOG"
-          screencapture -x "$R/$SLUG-$FILE-launch$1.png" 2>>"$LOG" || true
+          LAUNCH_NO=$((LAUNCH_NO+1)); screencapture -x "$R/$SLUG-$FILE-launch$LAUNCH_NO.png" 2>>"$LOG" || true
           tail -20 "$D/app.out" | cut -c1-240 >>"$LOG"
         fi
         grep -a -i -E "publik-telemetry|damaged|killed" "$D/app.out" | head -6 >>"$LOG"
         grep -a -qi "damaged" "$D/app.out" && DAMAGED=true
         pkill -TERM -f "$APP/" 2>/dev/null; sleep 2; pkill -KILL -f "$APP/" 2>/dev/null; sleep 1
       }
+      LAUNCH_NO=0
       echo "--- first launch" >>"$LOG"
       launch
       OPENED=$LAUNCH_OPENED; UP=$LAUNCH_UP; SESSION=$LAUNCH_SESSION; SECS=$LAUNCH_SECS
