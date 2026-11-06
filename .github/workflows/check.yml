@@ -6,12 +6,18 @@ on:
         description: "Listing slugs, comma-separated (empty = every file)"
         required: false
         default: ""
+      skip_mac:
+        description: "Run only the Windows and Linux jobs"
+        type: boolean
+        required: false
+        default: false
   push:
     branches: [main]
 permissions:
   contents: read
 jobs:
   check:
+    if: ${{ !inputs.skip_mac }}
     strategy:
       fail-fast: false
       matrix:
@@ -79,7 +85,7 @@ jobs:
       - name: Install what an AppImage needs on a desktop
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq xvfb rpm desktop-file-utils libnss3 libasound2t64 libgbm1 libgtk-3-0t64 libatk-bridge2.0-0t64 libxss1 libfuse2t64 > /dev/null
+          sudo apt-get install -y -qq xvfb rpm desktop-file-utils libnss3 libasound2t64 libgbm1 libgtk-3-0t64 libatk-bridge2.0-0t64 libxss1 libfuse2t64 libegl1 libgl1 libgles2 > /dev/null
       - name: Download, run every file
         run: bash check-linux.sh apps-winlin.json ${{ matrix.runner }} "${{ inputs.only }}"
       - uses: actions/upload-artifact@v4

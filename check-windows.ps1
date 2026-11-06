@@ -15,7 +15,10 @@ function Launch($exe, $wait, $L, $log) {
   $secs = $null
   for ($i = 0; $i -lt $wait; $i++) { if (Select-String -Path $L -Pattern '"event": *"app_opened"' -Quiet) { $secs = [int]((Get-Date) - $t0).TotalSeconds; break }; Start-Sleep 1 }
   Start-Sleep 4
-  $up = -not $p.HasExited
+  $dir = Split-Path $exe
+  $alive = @(Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.Path -and $_.Path.StartsWith($dir, [StringComparison]::OrdinalIgnoreCase) })
+  $up = $alive.Count -gt 0
+  "started process ended: $($p.HasExited) exit code: $(if ($p.HasExited) { $p.ExitCode }) processes under the app folder: $($alive.Count)" | Add-Content $log
   Get-Content "$L.err" -ErrorAction SilentlyContinue | Select-String 'publik-telemetry' | Select-Object -First 4 | Add-Content $log
   return @{ opened = ($null -ne $secs); secs = $secs; up = $up }
 }
@@ -40,6 +43,7 @@ foreach ($a in (Get-Content $List -Raw | ConvertFrom-Json)) {
     $pattern = $names[$a.slug]
     $exe = $null
     foreach ($d in $new) { $exe = Get-ChildItem $d -Recurse -Filter *.exe -ErrorAction SilentlyContinue | Where-Object { $_.Name -match $pattern } | Sort-Object { $_.FullName.Length } | Select-Object -First 1; if ($exe) { break } }
+    if (-not $exe) { foreach ($d in $new) { $exe = Get-ChildItem $d -Recurse -Filter *.exe -ErrorAction SilentlyContinue | Where-Object { $_.Name -notmatch 'unins|update|crashpad|setup' } | Sort-Object Length -Descending | Select-Object -First 1; if ($exe) { break } }; if ($exe) { "picked the largest program: $($exe.FullName)" | Add-Content $log } }
     if (-not $exe -and $a.file -like '*arm64*') {
       # A silent install of this file leaves no files, also for the upstream file. Run the package inside the installer.
       $res.install_note = 'silent install left no files; ran the package inside the installer'

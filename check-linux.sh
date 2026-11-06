@@ -22,7 +22,7 @@ launch() { # launch <key or empty> <command...>
   sleep 4; L_UP=false; kill -0 "$AP" 2>/dev/null && L_UP=true
   grep -a -E "publik-telemetry" "$D/app.out" | head -4 >>"$LOG"
   [ "$L_OPENED" = true ] || tail -20 "$D/app.out" | cut -c1-240 >>"$LOG"
-  kill "$AP" 2>/dev/null; pkill -f xvfb-run 2>/dev/null; pkill -TERM -f "$KILLPAT" 2>/dev/null; sleep 2; pkill -KILL -f "$KILLPAT" 2>/dev/null; sleep 1
+  kill "$AP" 2>/dev/null; pkill -f xvfb-run 2>/dev/null; pkill -TERM -f "$KILLPAT" 2>/dev/null; pkill -TERM -f appimage_extracted 2>/dev/null; sleep 2; pkill -KILL -f "$KILLPAT" 2>/dev/null; pkill -KILL -f appimage_extracted 2>/dev/null; sleep 1
 }
 while IFS=$'\t' read -r SLUG FILE URL; do
   LOG="$R/$SLUG-$FILE.log"; echo "=== $SLUG $FILE $URL" | tee "$LOG"
