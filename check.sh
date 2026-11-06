@@ -110,7 +110,7 @@ while IFS=$'\t' read -r SLUG FILE URL; do
       if [ "$SLUG" = astro ]; then
         # Astro reads only its own "publik API" connection, so this is its real sign-in path.
         mkdir -p "$HOME/.browseros/simplicity"
-        printf '%s' '{"providers":[{"id":"1","name":"OpenAI","type":"openai","config":{"apiKey":"sk-own-key-must-not-be-sent","baseURL":"https://api.openai.com/v1"}},{"id":"2","name":"publik API","type":"openai","config":{"apiKey":"'"$TESTKEY"'","baseURL":"https://publikhq.com/api/v1"}}]}' > "$HOME/.browseros/simplicity/config.json"
+        printf '%s' '{"version":1,"modelProviders":[{"id":"1","name":"OpenAI","type":"openai","config":{"apiKey":"sk-own-key-must-not-be-sent","baseURL":"https://api.openai.com/v1"}},{"id":"2","name":"publik API","type":"openai","config":{"apiKey":"'"$TESTKEY"'","baseURL":"https://publikhq.com/api/v1"}}]}' > "$HOME/.browseros/simplicity/config.json"
       else KEYENV="$TESTKEY"; fi
       : > "$L.auth"
       launch
