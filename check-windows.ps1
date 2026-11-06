@@ -43,7 +43,6 @@ foreach ($a in (Get-Content $List -Raw | ConvertFrom-Json)) {
     $pattern = $names[$a.slug]
     $exe = $null
     foreach ($d in $new) { $exe = Get-ChildItem $d -Recurse -Filter *.exe -ErrorAction SilentlyContinue | Where-Object { $_.Name -match $pattern } | Sort-Object { $_.FullName.Length } | Select-Object -First 1; if ($exe) { break } }
-    if (-not $exe) { foreach ($d in $new) { $exe = Get-ChildItem $d -Recurse -Filter *.exe -ErrorAction SilentlyContinue | Where-Object { $_.Name -notmatch 'unins|update|crashpad|setup' } | Sort-Object Length -Descending | Select-Object -First 1; if ($exe) { break } }; if ($exe) { "picked the largest program: $($exe.FullName)" | Add-Content $log } }
     if (-not $exe -and $a.file -like '*arm64*') {
       # A silent install of this file leaves no files, also for the upstream file. Run the package inside the installer.
       $res.install_note = 'silent install left no files; ran the package inside the installer'
@@ -51,6 +50,7 @@ foreach ($a in (Get-Content $List -Raw | ConvertFrom-Json)) {
       $pkg = Get-ChildItem $x -Recurse -Filter 'app-*.7z' | Select-Object -First 1
       if ($pkg) { & 'C:\Program Files\7-Zip\7z.exe' x $pkg.FullName "-o$x\app" -y | Out-Null; $exe = Get-ChildItem "$x\app" -Recurse -Filter *.exe | Where-Object { $_.Name -match $pattern } | Select-Object -First 1; $new = @("$x\app") }
     } elseif ($exe) { $res.installed = $true }
+    if (-not $exe -and $a.file -notlike '*arm64*') { foreach ($d in $new) { $exe = Get-ChildItem $d -Recurse -Filter *.exe -ErrorAction SilentlyContinue | Where-Object { $_.Name -notmatch 'unins|update|crashpad|setup' } | Sort-Object Length -Descending | Select-Object -First 1; if ($exe) { break } }; if ($exe) { $res.installed = $true; "picked the largest program: $($exe.FullName)" | Add-Content $log } }
     if ($exe) {
       $res.exe = $exe.FullName
       $port = Get-Random -Minimum 20000 -Maximum 40000; $L = Join-Path $D 'listener.jsonl'; Set-Content $L ''

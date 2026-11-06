@@ -6,6 +6,11 @@ on:
         description: "Listing slugs, comma-separated (empty = every file)"
         required: false
         default: ""
+      skip_windows:
+        description: "Skip the Windows jobs"
+        type: boolean
+        required: false
+        default: false
       skip_mac:
         description: "Run only the Windows and Linux jobs"
         type: boolean
@@ -43,6 +48,7 @@ jobs:
           path: results
 
   windows:
+    if: ${{ !inputs.skip_windows }}
     strategy:
       fail-fast: false
       matrix:

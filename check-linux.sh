@@ -31,7 +31,7 @@ while IFS=$'\t' read -r SLUG FILE URL; do
   curl -fsSL --retry 3 -o "$F" "$URL" && DL=true
   if [ "$DL" = true ]; then
     case "$FILE" in
-      *.AppImage) chmod +x "$F"; CMD=("$F"); KILLPAT="$D"; INST=true;;
+      *.AppImage) chmod +x "$F"; CMD=("$F"); KILLPAT="$F"; INST=true;;
       *.deb) if sudo apt-get install -y "$F" >>"$LOG" 2>&1; then
                PKG="$(dpkg-deb -f "$F" Package)"; DESK="$(dpkg -L "$PKG" | grep '\.desktop$' | head -1)"; BIN="$(grep -m1 '^Exec=' "$DESK" | sed 's/^Exec=//; s/ %.*//; s/"//g')"
                echo "package $PKG runs $BIN" >>"$LOG"; CMD=("$BIN"); KILLPAT="$(basename "$BIN")"; INST=true
