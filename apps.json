@@ -72,15 +72,15 @@
  {
   "slug": "designcraft",
   "file": "designcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.4/designcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.4",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.5/designcraft-0.9.0-macos-universal.dmg",
+  "tag": "v0.9.0-publik.5",
   "runner": "arm64"
  },
  {
   "slug": "designcraft",
   "file": "designcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.4/designcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.4",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.5/designcraft-cli-0.9.0-macos-universal.zip",
+  "tag": "v0.9.0-publik.5",
   "runner": "arm64"
  },
  {
@@ -233,15 +233,15 @@
  {
   "slug": "pdfcraft",
   "file": "pdfcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.5/pdfcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.6/pdfcraft-0.9.0-macos-universal.dmg",
+  "tag": "v0.9.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "pdfcraft",
   "file": "pdfcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.5/pdfcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.6/pdfcraft-cli-0.9.0-macos-universal.zip",
+  "tag": "v0.9.0-publik.6",
   "runner": "arm64"
  },
  {
@@ -380,15 +380,15 @@
  {
   "slug": "designcraft",
   "file": "designcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.4/designcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.4",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.5/designcraft-0.9.0-macos-universal.dmg",
+  "tag": "v0.9.0-publik.5",
   "runner": "x64"
  },
  {
   "slug": "designcraft",
   "file": "designcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.4/designcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.4",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.5/designcraft-cli-0.9.0-macos-universal.zip",
+  "tag": "v0.9.0-publik.5",
   "runner": "x64"
  },
  {
@@ -471,15 +471,15 @@
  {
   "slug": "pdfcraft",
   "file": "pdfcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.5/pdfcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.6/pdfcraft-0.9.0-macos-universal.dmg",
+  "tag": "v0.9.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "pdfcraft",
   "file": "pdfcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.5/pdfcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.6/pdfcraft-cli-0.9.0-macos-universal.zip",
+  "tag": "v0.9.0-publik.6",
   "runner": "x64"
  },
  {
