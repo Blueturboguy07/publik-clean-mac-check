@@ -37,7 +37,7 @@
  {
   "slug": "iris",
   "file": "Iris-Setup.exe",
-  "url": "https://github.com/Blueturboguy07/iris/releases/download/iris-v0.9.16/Iris-Setup.exe",
+  "url": "https://github.com/Blueturboguy07/iris/releases/download/iris-v0.9.17/Iris-Setup.exe",
   "platform": "windows",
   "runner": "windows-x64"
  },
