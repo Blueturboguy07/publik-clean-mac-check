@@ -1,0 +1,21 @@
+name: production signed-in check
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  prod-signed-in:
+    runs-on: macos-15
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: A real key in each app's own store, then the public build against production
+        env:
+          PROD_KEYS: ${{ secrets.PROD_KEYS }}
+        run: bash prod-signed-in.sh apps.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-prod-signed-in
+          path: results
+          retention-days: 3
