@@ -50,36 +50,36 @@
  },
  {
   "slug": "moodledesk",
-  "file": "Zenith_0.2.2_amd64.AppImage",
-  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_amd64.AppImage",
+  "file": "Zenith_0.2.5_amd64.AppImage",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.5-publik.1/Zenith_0.2.5_amd64.AppImage",
   "platform": "linux",
   "runner": "linux-x64"
  },
  {
   "slug": "moodledesk",
-  "file": "Zenith_0.2.2_amd64.deb",
-  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_amd64.deb",
+  "file": "Zenith_0.2.5_amd64.deb",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.5-publik.1/Zenith_0.2.5_amd64.deb",
   "platform": "linux",
   "runner": "linux-x64"
  },
  {
   "slug": "moodledesk",
-  "file": "Zenith-0.2.2-1.x86_64.rpm",
-  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith-0.2.2-1.x86_64.rpm",
+  "file": "Zenith-0.2.5-1.x86_64.rpm",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.5-publik.1/Zenith-0.2.5-1.x86_64.rpm",
   "platform": "linux",
   "runner": "linux-x64"
  },
  {
   "slug": "moodledesk",
-  "file": "Zenith_0.2.2_x64_en-US.msi",
-  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_x64_en-US.msi",
+  "file": "Zenith_0.2.5_x64_en-US.msi",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.5-publik.1/Zenith_0.2.5_x64_en-US.msi",
   "platform": "windows",
   "runner": "windows-x64"
  },
  {
   "slug": "moodledesk",
-  "file": "Zenith_0.2.2_x64-setup.exe",
-  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_x64-setup.exe",
+  "file": "Zenith_0.2.5_x64-setup.exe",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.5-publik.1/Zenith_0.2.5_x64-setup.exe",
   "platform": "windows",
   "runner": "windows-x64"
  },

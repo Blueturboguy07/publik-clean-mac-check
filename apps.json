@@ -211,9 +211,9 @@
  },
  {
   "slug": "moodledesk",
-  "file": "Zenith_0.2.2_universal.dmg",
-  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_universal.dmg",
-  "tag": "v0.2.2-publik.1",
+  "file": "Zenith_0.2.5_universal.dmg",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.5-publik.1/Zenith_0.2.5_universal.dmg",
+  "tag": "v0.2.5-publik.1",
   "runner": "arm64"
  },
  {
@@ -463,9 +463,9 @@
  },
  {
   "slug": "moodledesk",
-  "file": "Zenith_0.2.2_universal.dmg",
-  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.2-publik.1/Zenith_0.2.2_universal.dmg",
-  "tag": "v0.2.2-publik.1",
+  "file": "Zenith_0.2.5_universal.dmg",
+  "url": "https://github.com/Blueturboguy07/zenith/releases/download/v0.2.5-publik.1/Zenith_0.2.5_universal.dmg",
+  "tag": "v0.2.5-publik.1",
   "runner": "x64"
  },
  {
