@@ -62,9 +62,14 @@ jobs:
       - name: Block publikhq.com, so a test can not touch production
         shell: pwsh
         run: |
-          Add-Content C:\Windows\System32\drivers\etc\hosts "127.0.0.1 publikhq.com"
-          Add-Content C:\Windows\System32\drivers\etc\hosts "127.0.0.1 www.publikhq.com"
+          # Another process can hold the hosts file for a moment. Write both lines at once, and try again up to 10 times.
+          $h = "C:\Windows\System32\drivers\etc\hosts"
+          for ($i = 1; $i -le 10; $i++) {
+            try { Add-Content -Path $h -Value "127.0.0.1 publikhq.com`r`n127.0.0.1 www.publikhq.com" -ErrorAction Stop; break }
+            catch { if ($i -eq 10) { throw }; Write-Host "hosts file busy, try $i of 10"; Start-Sleep -Seconds 3 }
+          }
           ipconfig /flushdns | Out-Null
+          if (-not (Select-String -Path $h -Pattern "127.0.0.1 www.publikhq.com" -Quiet)) { throw "publikhq.com is not blocked" }
       - name: Download, install and open every file
         shell: pwsh
         run: ./check-windows.ps1 -List apps-winlin.json -Runner ${{ matrix.runner }} -Only "${{ inputs.only }}"
