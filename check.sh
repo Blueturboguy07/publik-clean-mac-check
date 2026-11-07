@@ -31,13 +31,19 @@ while IFS=$'\t' read -r SLUG FILE URL; do
         echo "$O" | grep -q "accepted" && GK_FILE=true || GK_FILE=false
         MNT="$(mktemp -d)"; hdiutil attach -nobrowse -readonly -noautoopen -mountpoint "$MNT" "$F" >>"$LOG" 2>&1
         A="$(find "$MNT" -maxdepth 1 -name '*.app' | head -1)"
-        if [ -n "$A" ]; then ditto "$A" "/Applications/$(basename "$A")" && APP="/Applications/$(basename "$A")"; fi
+        if [ -n "$A" ]; then
+          # A fresh install: ditto merges into an existing folder, so any older copy goes first.
+          [ -e "/Applications/$(basename "$A")" ] && { echo "old copy found and removed: /Applications/$(basename "$A")" >>"$LOG"; rm -rf "/Applications/$(basename "$A")"; }
+          ditto "$A" "/Applications/$(basename "$A")" 2>>"$LOG" && APP="/Applications/$(basename "$A")"
+        fi
         hdiutil detach "$MNT" -quiet -force >>"$LOG" 2>&1
         ;;
       *.zip)
         INTEGRITY=true; X="$D/x"; mkdir -p "$X"; ditto -x -k "$F" "$X" 2>>"$LOG" || INTEGRITY=false
         A="$(find "$X" -maxdepth 2 -name '*.app' | head -1)"
-        if [ -n "$A" ]; then ditto "$A" "/Applications/$(basename "$A")" && APP="/Applications/$(basename "$A")"
+        if [ -n "$A" ]; then
+          [ -e "/Applications/$(basename "$A")" ] && { echo "old copy found and removed: /Applications/$(basename "$A")" >>"$LOG"; rm -rf "/Applications/$(basename "$A")"; }
+          ditto "$A" "/Applications/$(basename "$A")" 2>>"$LOG" && APP="/Applications/$(basename "$A")"
         else KIND=cli; fi
         ;;
     esac
@@ -85,6 +91,15 @@ while IFS=$'\t' read -r SLUG FILE URL; do
       stapled "$APP" && STAPLE_APP=true
       O="$(spctl -a -t exec -vv "$APP" 2>&1)"; echo "$O" >>"$LOG"
       echo "$O" | grep -q "accepted" && GK_APP=true; GK_SOURCE="$(echo "$O" | grep -o 'source=.*' | head -1)"
+      if [ "$GK_APP" != true ]; then
+        # Diagnostics: which file fails, the source file on the dmg, and the free disk.
+        echo "--- signature diagnostics" >>"$LOG"; df -h / >>"$LOG" 2>&1
+        codesign --verify --deep --strict --verbose=4 "$APP" >>"$LOG" 2>&1
+        case "$FILE" in
+          *.dmg) M2="$(mktemp -d)"; hdiutil attach -nobrowse -readonly -noautoopen -mountpoint "$M2" "$F" >/dev/null 2>&1 && { diff -rq "$M2/$(basename "$APP")" "$APP" >>"$LOG" 2>&1; codesign --verify --deep --strict --verbose=2 "$M2/$(basename "$APP")" >>"$LOG" 2>&1 && echo "the app on the dmg itself: valid" >>"$LOG"; hdiutil detach "$M2" -quiet -force; } ;;
+          *) diff -rq "$A" "$APP" >>"$LOG" 2>&1 ;;
+        esac
+      fi
       VER="$(defaults read "$APP/Contents/Info" CFBundleShortVersionString 2>/dev/null)"
       EXE="$APP/Contents/MacOS/$(defaults read "$APP/Contents/Info" CFBundleExecutable)"
       PORT=$((20000 + RANDOM % 20000)); L="$D/listener.jsonl"; : > "$L"
