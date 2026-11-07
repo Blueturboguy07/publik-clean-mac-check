@@ -22,16 +22,16 @@
  },
  {
   "slug": "cadcraft",
-  "file": "cadcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.9.0-publik.5/cadcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "file": "cadcraft-0.18.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.18.0-publik.6/cadcraft-0.18.0-macos-universal.dmg",
+  "tag": "v0.18.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "cadcraft",
-  "file": "cadcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.9.0-publik.5/cadcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "file": "cadcraft-cli-0.18.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.18.0-publik.6/cadcraft-cli-0.18.0-macos-universal.zip",
+  "tag": "v0.18.0-publik.6",
   "runner": "arm64"
  },
  {
@@ -57,72 +57,72 @@
  },
  {
   "slug": "deckcraft",
-  "file": "deckcraft-0.8.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.8.0-publik.5/deckcraft-0.8.0-macos-universal.dmg",
-  "tag": "v0.8.0-publik.5",
+  "file": "deckcraft-0.16.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.16.0-publik.6/deckcraft-0.16.0-macos-universal.dmg",
+  "tag": "v0.16.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "deckcraft",
-  "file": "deckcraft-cli-0.8.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.8.0-publik.5/deckcraft-cli-0.8.0-macos-universal.zip",
-  "tag": "v0.8.0-publik.5",
+  "file": "deckcraft-cli-0.16.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.16.0-publik.6/deckcraft-cli-0.16.0-macos-universal.zip",
+  "tag": "v0.16.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "designcraft",
-  "file": "designcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.5/designcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "file": "designcraft-0.18.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.18.0-publik.6/designcraft-0.18.0-macos-universal.dmg",
+  "tag": "v0.18.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "designcraft",
-  "file": "designcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.5/designcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "file": "designcraft-cli-0.18.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.18.0-publik.6/designcraft-cli-0.18.0-macos-universal.zip",
+  "tag": "v0.18.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "effectcraft",
-  "file": "effectcraft-0.12.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.12.0-publik.5/effectcraft-0.12.0-macos-universal.dmg",
-  "tag": "v0.12.0-publik.5",
+  "file": "effectcraft-0.22.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.22.0-publik.6/effectcraft-0.22.0-macos-universal.dmg",
+  "tag": "v0.22.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "effectcraft",
-  "file": "effectcraft-cli-0.12.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.12.0-publik.5/effectcraft-cli-0.12.0-macos-universal.zip",
-  "tag": "v0.12.0-publik.5",
+  "file": "effectcraft-cli-0.22.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.22.0-publik.6/effectcraft-cli-0.22.0-macos-universal.zip",
+  "tag": "v0.22.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "figcraft",
-  "file": "figcraft-0.7.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.7.0-publik.5/figcraft-0.7.0-macos-universal.dmg",
-  "tag": "v0.7.0-publik.5",
+  "file": "figcraft-0.16.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.16.0-publik.6/figcraft-0.16.0-macos-universal.dmg",
+  "tag": "v0.16.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "figcraft",
-  "file": "figcraft-cli-0.7.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.7.0-publik.5/figcraft-cli-0.7.0-macos-universal.zip",
-  "tag": "v0.7.0-publik.5",
+  "file": "figcraft-cli-0.16.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.16.0-publik.6/figcraft-cli-0.16.0-macos-universal.zip",
+  "tag": "v0.16.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "filmcraft",
-  "file": "filmcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.9.0-publik.5/filmcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "file": "filmcraft-0.18.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.18.0-publik.6/filmcraft-0.18.0-macos-universal.dmg",
+  "tag": "v0.18.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "filmcraft",
-  "file": "filmcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.9.0-publik.5/filmcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "file": "filmcraft-cli-0.18.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.18.0-publik.6/filmcraft-cli-0.18.0-macos-universal.zip",
+  "tag": "v0.18.0-publik.6",
   "runner": "arm64"
  },
  {
@@ -155,16 +155,16 @@
  },
  {
   "slug": "gridcraft",
-  "file": "gridcraft-0.8.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.8.0-publik.6/gridcraft-0.8.0-macos-universal.dmg",
-  "tag": "v0.8.0-publik.6",
+  "file": "gridcraft-0.17.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.17.0-publik.7/gridcraft-0.17.0-macos-universal.dmg",
+  "tag": "v0.17.0-publik.7",
   "runner": "arm64"
  },
  {
   "slug": "gridcraft",
-  "file": "gridcraft-cli-0.8.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.8.0-publik.6/gridcraft-cli-0.8.0-macos-universal.zip",
-  "tag": "v0.8.0-publik.6",
+  "file": "gridcraft-cli-0.17.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.17.0-publik.7/gridcraft-cli-0.17.0-macos-universal.zip",
+  "tag": "v0.17.0-publik.7",
   "runner": "arm64"
  },
  {
@@ -197,16 +197,16 @@
  },
  {
   "slug": "lightcraft",
-  "file": "lightcraft-0.9.1-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.9.1-publik.5/lightcraft-0.9.1-macos-universal.dmg",
-  "tag": "v0.9.1-publik.5",
+  "file": "lightcraft-0.19.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.19.0-publik.6/lightcraft-0.19.0-macos-universal.dmg",
+  "tag": "v0.19.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "lightcraft",
-  "file": "lightcraft-cli-0.9.1-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.9.1-publik.5/lightcraft-cli-0.9.1-macos-universal.zip",
-  "tag": "v0.9.1-publik.5",
+  "file": "lightcraft-cli-0.19.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.19.0-publik.6/lightcraft-cli-0.19.0-macos-universal.zip",
+  "tag": "v0.19.0-publik.6",
   "runner": "arm64"
  },
  {
@@ -232,30 +232,30 @@
  },
  {
   "slug": "pdfcraft",
-  "file": "pdfcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.6/pdfcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.6",
+  "file": "pdfcraft-0.19.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.19.0-publik.7/pdfcraft-0.19.0-macos-universal.dmg",
+  "tag": "v0.19.0-publik.7",
   "runner": "arm64"
  },
  {
   "slug": "pdfcraft",
-  "file": "pdfcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.6/pdfcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.6",
+  "file": "pdfcraft-cli-0.19.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.19.0-publik.7/pdfcraft-cli-0.19.0-macos-universal.zip",
+  "tag": "v0.19.0-publik.7",
   "runner": "arm64"
  },
  {
   "slug": "photocraft",
-  "file": "photocraft-0.10.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.10.0-publik.5/photocraft-0.10.0-macos-universal.dmg",
-  "tag": "v0.10.0-publik.5",
+  "file": "photocraft-0.21.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.21.0-publik.6/photocraft-0.21.0-macos-universal.dmg",
+  "tag": "v0.21.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "photocraft",
-  "file": "photocraft-cli-0.10.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.10.0-publik.5/photocraft-cli-0.10.0-macos-universal.zip",
-  "tag": "v0.10.0-publik.5",
+  "file": "photocraft-cli-0.21.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.21.0-publik.6/photocraft-cli-0.21.0-macos-universal.zip",
+  "tag": "v0.21.0-publik.6",
   "runner": "arm64"
  },
  {
@@ -281,16 +281,16 @@
  },
  {
   "slug": "soundcraft",
-  "file": "soundcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.9.0-publik.5/soundcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "file": "soundcraft-0.18.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.18.0-publik.6/soundcraft-0.18.0-macos-universal.dmg",
+  "tag": "v0.18.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "soundcraft",
-  "file": "soundcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.9.0-publik.5/soundcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "file": "soundcraft-cli-0.18.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.18.0-publik.6/soundcraft-cli-0.18.0-macos-universal.zip",
+  "tag": "v0.18.0-publik.6",
   "runner": "arm64"
  },
  {
@@ -302,16 +302,16 @@
  },
  {
   "slug": "vectorcraft",
-  "file": "vectorcraft-0.13.1-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.13.1-publik.5/vectorcraft-0.13.1-macos-universal.dmg",
-  "tag": "v0.13.1-publik.5",
+  "file": "vectorcraft-0.22.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.22.0-publik.6/vectorcraft-0.22.0-macos-universal.dmg",
+  "tag": "v0.22.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "vectorcraft",
-  "file": "vectorcraft-cli-0.13.1-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.13.1-publik.5/vectorcraft-cli-0.13.1-macos-universal.zip",
-  "tag": "v0.13.1-publik.5",
+  "file": "vectorcraft-cli-0.22.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.22.0-publik.6/vectorcraft-cli-0.22.0-macos-universal.zip",
+  "tag": "v0.22.0-publik.6",
   "runner": "arm64"
  },
  {
@@ -323,16 +323,16 @@
  },
  {
   "slug": "wordcraft",
-  "file": "wordcraft-0.8.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.8.0-publik.5/wordcraft-0.8.0-macos-universal.dmg",
-  "tag": "v0.8.0-publik.5",
+  "file": "wordcraft-0.16.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.16.0-publik.6/wordcraft-0.16.0-macos-universal.dmg",
+  "tag": "v0.16.0-publik.6",
   "runner": "arm64"
  },
  {
   "slug": "wordcraft",
-  "file": "wordcraft-cli-0.8.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.8.0-publik.5/wordcraft-cli-0.8.0-macos-universal.zip",
-  "tag": "v0.8.0-publik.5",
+  "file": "wordcraft-cli-0.16.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.16.0-publik.6/wordcraft-cli-0.16.0-macos-universal.zip",
+  "tag": "v0.16.0-publik.6",
   "runner": "arm64"
  },
  {
@@ -344,16 +344,16 @@
  },
  {
   "slug": "cadcraft",
-  "file": "cadcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.9.0-publik.5/cadcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "file": "cadcraft-0.18.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.18.0-publik.6/cadcraft-0.18.0-macos-universal.dmg",
+  "tag": "v0.18.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "cadcraft",
-  "file": "cadcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.9.0-publik.5/cadcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "file": "cadcraft-cli-0.18.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/cadcraft/releases/download/v0.18.0-publik.6/cadcraft-cli-0.18.0-macos-universal.zip",
+  "tag": "v0.18.0-publik.6",
   "runner": "x64"
  },
  {
@@ -365,100 +365,100 @@
  },
  {
   "slug": "deckcraft",
-  "file": "deckcraft-0.8.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.8.0-publik.5/deckcraft-0.8.0-macos-universal.dmg",
-  "tag": "v0.8.0-publik.5",
+  "file": "deckcraft-0.16.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.16.0-publik.6/deckcraft-0.16.0-macos-universal.dmg",
+  "tag": "v0.16.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "deckcraft",
-  "file": "deckcraft-cli-0.8.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.8.0-publik.5/deckcraft-cli-0.8.0-macos-universal.zip",
-  "tag": "v0.8.0-publik.5",
+  "file": "deckcraft-cli-0.16.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/deckcraft/releases/download/v0.16.0-publik.6/deckcraft-cli-0.16.0-macos-universal.zip",
+  "tag": "v0.16.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "designcraft",
-  "file": "designcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.5/designcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "file": "designcraft-0.18.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.18.0-publik.6/designcraft-0.18.0-macos-universal.dmg",
+  "tag": "v0.18.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "designcraft",
-  "file": "designcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.9.0-publik.5/designcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "file": "designcraft-cli-0.18.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/designcraft/releases/download/v0.18.0-publik.6/designcraft-cli-0.18.0-macos-universal.zip",
+  "tag": "v0.18.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "effectcraft",
-  "file": "effectcraft-0.12.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.12.0-publik.5/effectcraft-0.12.0-macos-universal.dmg",
-  "tag": "v0.12.0-publik.5",
+  "file": "effectcraft-0.22.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.22.0-publik.6/effectcraft-0.22.0-macos-universal.dmg",
+  "tag": "v0.22.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "effectcraft",
-  "file": "effectcraft-cli-0.12.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.12.0-publik.5/effectcraft-cli-0.12.0-macos-universal.zip",
-  "tag": "v0.12.0-publik.5",
+  "file": "effectcraft-cli-0.22.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/effectcraft/releases/download/v0.22.0-publik.6/effectcraft-cli-0.22.0-macos-universal.zip",
+  "tag": "v0.22.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "figcraft",
-  "file": "figcraft-0.7.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.7.0-publik.5/figcraft-0.7.0-macos-universal.dmg",
-  "tag": "v0.7.0-publik.5",
+  "file": "figcraft-0.16.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.16.0-publik.6/figcraft-0.16.0-macos-universal.dmg",
+  "tag": "v0.16.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "figcraft",
-  "file": "figcraft-cli-0.7.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.7.0-publik.5/figcraft-cli-0.7.0-macos-universal.zip",
-  "tag": "v0.7.0-publik.5",
+  "file": "figcraft-cli-0.16.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/figcraft/releases/download/v0.16.0-publik.6/figcraft-cli-0.16.0-macos-universal.zip",
+  "tag": "v0.16.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "filmcraft",
-  "file": "filmcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.9.0-publik.5/filmcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "file": "filmcraft-0.18.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.18.0-publik.6/filmcraft-0.18.0-macos-universal.dmg",
+  "tag": "v0.18.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "filmcraft",
-  "file": "filmcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.9.0-publik.5/filmcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "file": "filmcraft-cli-0.18.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/filmcraft/releases/download/v0.18.0-publik.6/filmcraft-cli-0.18.0-macos-universal.zip",
+  "tag": "v0.18.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "gridcraft",
-  "file": "gridcraft-0.8.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.8.0-publik.6/gridcraft-0.8.0-macos-universal.dmg",
-  "tag": "v0.8.0-publik.6",
+  "file": "gridcraft-0.17.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.17.0-publik.7/gridcraft-0.17.0-macos-universal.dmg",
+  "tag": "v0.17.0-publik.7",
   "runner": "x64"
  },
  {
   "slug": "gridcraft",
-  "file": "gridcraft-cli-0.8.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.8.0-publik.6/gridcraft-cli-0.8.0-macos-universal.zip",
-  "tag": "v0.8.0-publik.6",
+  "file": "gridcraft-cli-0.17.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.17.0-publik.7/gridcraft-cli-0.17.0-macos-universal.zip",
+  "tag": "v0.17.0-publik.7",
   "runner": "x64"
  },
  {
   "slug": "lightcraft",
-  "file": "lightcraft-0.9.1-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.9.1-publik.5/lightcraft-0.9.1-macos-universal.dmg",
-  "tag": "v0.9.1-publik.5",
+  "file": "lightcraft-0.19.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.19.0-publik.6/lightcraft-0.19.0-macos-universal.dmg",
+  "tag": "v0.19.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "lightcraft",
-  "file": "lightcraft-cli-0.9.1-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.9.1-publik.5/lightcraft-cli-0.9.1-macos-universal.zip",
-  "tag": "v0.9.1-publik.5",
+  "file": "lightcraft-cli-0.19.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/lightcraft/releases/download/v0.19.0-publik.6/lightcraft-cli-0.19.0-macos-universal.zip",
+  "tag": "v0.19.0-publik.6",
   "runner": "x64"
  },
  {
@@ -470,44 +470,44 @@
  },
  {
   "slug": "pdfcraft",
-  "file": "pdfcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.6/pdfcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.6",
+  "file": "pdfcraft-0.19.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.19.0-publik.7/pdfcraft-0.19.0-macos-universal.dmg",
+  "tag": "v0.19.0-publik.7",
   "runner": "x64"
  },
  {
   "slug": "pdfcraft",
-  "file": "pdfcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.9.0-publik.6/pdfcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.6",
+  "file": "pdfcraft-cli-0.19.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.19.0-publik.7/pdfcraft-cli-0.19.0-macos-universal.zip",
+  "tag": "v0.19.0-publik.7",
   "runner": "x64"
  },
  {
   "slug": "photocraft",
-  "file": "photocraft-0.10.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.10.0-publik.5/photocraft-0.10.0-macos-universal.dmg",
-  "tag": "v0.10.0-publik.5",
+  "file": "photocraft-0.21.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.21.0-publik.6/photocraft-0.21.0-macos-universal.dmg",
+  "tag": "v0.21.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "photocraft",
-  "file": "photocraft-cli-0.10.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.10.0-publik.5/photocraft-cli-0.10.0-macos-universal.zip",
-  "tag": "v0.10.0-publik.5",
+  "file": "photocraft-cli-0.21.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/photocraft/releases/download/v0.21.0-publik.6/photocraft-cli-0.21.0-macos-universal.zip",
+  "tag": "v0.21.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "soundcraft",
-  "file": "soundcraft-0.9.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.9.0-publik.5/soundcraft-0.9.0-macos-universal.dmg",
-  "tag": "v0.9.0-publik.5",
+  "file": "soundcraft-0.18.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.18.0-publik.6/soundcraft-0.18.0-macos-universal.dmg",
+  "tag": "v0.18.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "soundcraft",
-  "file": "soundcraft-cli-0.9.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.9.0-publik.5/soundcraft-cli-0.9.0-macos-universal.zip",
-  "tag": "v0.9.0-publik.5",
+  "file": "soundcraft-cli-0.18.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/soundcraft/releases/download/v0.18.0-publik.6/soundcraft-cli-0.18.0-macos-universal.zip",
+  "tag": "v0.18.0-publik.6",
   "runner": "x64"
  },
  {
@@ -519,30 +519,30 @@
  },
  {
   "slug": "vectorcraft",
-  "file": "vectorcraft-0.13.1-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.13.1-publik.5/vectorcraft-0.13.1-macos-universal.dmg",
-  "tag": "v0.13.1-publik.5",
+  "file": "vectorcraft-0.22.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.22.0-publik.6/vectorcraft-0.22.0-macos-universal.dmg",
+  "tag": "v0.22.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "vectorcraft",
-  "file": "vectorcraft-cli-0.13.1-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.13.1-publik.5/vectorcraft-cli-0.13.1-macos-universal.zip",
-  "tag": "v0.13.1-publik.5",
+  "file": "vectorcraft-cli-0.22.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.22.0-publik.6/vectorcraft-cli-0.22.0-macos-universal.zip",
+  "tag": "v0.22.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "wordcraft",
-  "file": "wordcraft-0.8.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.8.0-publik.5/wordcraft-0.8.0-macos-universal.dmg",
-  "tag": "v0.8.0-publik.5",
+  "file": "wordcraft-0.16.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.16.0-publik.6/wordcraft-0.16.0-macos-universal.dmg",
+  "tag": "v0.16.0-publik.6",
   "runner": "x64"
  },
  {
   "slug": "wordcraft",
-  "file": "wordcraft-cli-0.8.0-macos-universal.zip",
-  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.8.0-publik.5/wordcraft-cli-0.8.0-macos-universal.zip",
-  "tag": "v0.8.0-publik.5",
+  "file": "wordcraft-cli-0.16.0-macos-universal.zip",
+  "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.16.0-publik.6/wordcraft-cli-0.16.0-macos-universal.zip",
+  "tag": "v0.16.0-publik.6",
   "runner": "x64"
  },
  {
