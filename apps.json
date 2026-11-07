@@ -36,9 +36,9 @@
  },
  {
   "slug": "craft-launcher",
-  "file": "artcraft-launcher-0.15.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/craft-launcher/releases/download/v0.15.0-publik.5/artcraft-launcher-0.15.0-macos-universal.dmg",
-  "tag": "v0.15.0-publik.5",
+  "file": "artcraft-launcher-0.16.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/craft-launcher/releases/download/v0.16.0-publik.6/artcraft-launcher-0.16.0-macos-universal.dmg",
+  "tag": "v0.16.0-publik.6",
   "runner": "arm64"
  },
  {
@@ -358,9 +358,9 @@
  },
  {
   "slug": "craft-launcher",
-  "file": "artcraft-launcher-0.15.0-macos-universal.dmg",
-  "url": "https://github.com/Blueturboguy07/craft-launcher/releases/download/v0.15.0-publik.5/artcraft-launcher-0.15.0-macos-universal.dmg",
-  "tag": "v0.15.0-publik.5",
+  "file": "artcraft-launcher-0.16.0-macos-universal.dmg",
+  "url": "https://github.com/Blueturboguy07/craft-launcher/releases/download/v0.16.0-publik.6/artcraft-launcher-0.16.0-macos-universal.dmg",
+  "tag": "v0.16.0-publik.6",
   "runner": "x64"
  },
  {
