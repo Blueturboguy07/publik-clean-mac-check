@@ -219,15 +219,15 @@
  {
   "slug": "nitroai",
   "file": "NitroAI-mac-arm64.dmg",
-  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.5/NitroAI-mac-arm64.dmg",
-  "tag": "v0.2.5",
+  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.6/NitroAI-mac-arm64.dmg",
+  "tag": "v0.2.6",
   "runner": "arm64"
  },
  {
   "slug": "nitroai",
   "file": "NitroAI-mac-x64.dmg",
-  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.5/NitroAI-mac-x64.dmg",
-  "tag": "v0.2.5",
+  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.6/NitroAI-mac-x64.dmg",
+  "tag": "v0.2.6",
   "runner": "x64"
  },
  {

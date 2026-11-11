@@ -86,16 +86,18 @@
  {
   "slug": "nitroai",
   "file": "NitroAI-Linux-x86_64.AppImage",
-  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.5/NitroAI-Linux-x86_64.AppImage",
+  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.6/NitroAI-Linux-x86_64.AppImage",
   "platform": "linux",
-  "runner": "linux-x64"
+  "runner": "linux-x64",
+  "tag": "v0.2.6"
  },
  {
   "slug": "nitroai",
   "file": "NitroAI-Setup-Windows.exe",
-  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.5/NitroAI-Setup-Windows.exe",
+  "url": "https://github.com/Blueturboguy07/NitroAI/releases/download/v0.2.6/NitroAI-Setup-Windows.exe",
   "platform": "windows",
-  "runner": "windows-x64"
+  "runner": "windows-x64",
+  "tag": "v0.2.6"
  },
  {
   "slug": "publikclip",
