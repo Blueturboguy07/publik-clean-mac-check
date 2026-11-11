@@ -1,18 +1,23 @@
 name: gate window check
-# The newest public macOS dmg of five apps on a clean Mac: install, open with no environment overrides (the apps talk to
-# the real https://publikhq.com), screenshots and window titles. Nothing is blocked and no key is written.
+# The newest public macOS file of each publik app on a clean Mac: install, open with no environment overrides (the apps
+# talk to the real https://publikhq.com), screenshots and window titles. Nothing is blocked and no key is written.
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Slugs from gate-apps.json, comma-separated (empty = every app)"
+        required: false
+        default: ""
 permissions:
   contents: read
 jobs:
   gate-window:
     runs-on: macos-15
-    timeout-minutes: 40
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - name: Download, install and open each app; screenshots and window titles
-        run: bash gate-window.sh gate-apps.json
+        run: bash gate-window.sh gate-apps.json "${{ inputs.only }}"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

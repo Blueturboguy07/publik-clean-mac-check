@@ -1,5 +1,5 @@
 #!/bin/bash
-# gate-window.sh <gate-apps.json>
+# gate-window.sh <gate-apps.json> [only: slugs, comma-separated; empty = every app]
 # On a clean Mac: download the newest public dmg of each app the way a browser does (quarantine flag on), install it
 # to /Applications and open it with `open -a`. There are no environment overrides and no key file: the app talks to the
 # real https://publikhq.com, as a user's install does. 15 s after the open, take a screenshot of the whole screen and
@@ -7,11 +7,13 @@
 # If the macOS first-open dialog ("downloaded from the Internet") stops the app, the script clicks "Open" as a user
 # does and takes two more screenshots (-3 and -4). Screenshot -0 is the screen before the open. A list of every
 # on-screen window with its owner process goes with the screenshots. An alert window that stays after the app has quit
-# is recorded, and its owner process (UserNotificationCenter or osascript only) is stopped, so the next app starts clean.
+# is recorded, and its owner process is stopped (UserNotificationCenter, osascript, or a process that is not part of
+# macOS), so the next app starts clean. Its button is never clicked. A mac zip (an app that ships no dmg) is unpacked
+# with ditto; its Gatekeeper result is the result for the app.
 # Writes results/results.jsonl (one line per app), results/<slug>.log, results/<slug>-N.png and results/control.*.
 # One app that fails does not stop the others (set -u, not set -e).
 set -u
-LIST="$1"; ROOT="$PWD"; R="$ROOT/results"; mkdir -p "$R"
+LIST="$1"; ONLY="${2:-}"; ROOT="$PWD"; R="$ROOT/results"; mkdir -p "$R"
 Q="0083;$(printf '%x' "$(date +%s)");Safari;$(uuidgen)"
 tmo() { perl -e 'alarm shift; exec @ARGV or die "exec failed: $!\n"' "$@"; }   # tmo <seconds> <command...>
 
@@ -64,7 +66,7 @@ C="$R/control.log"; : > "$C"
 { echo "=== control $(date -u +%FT%TZ)"; sw_vers; uname -m; spctl --status
   echo "LSQuarantine default: $(defaults read com.apple.LaunchServices LSQuarantine 2>&1)"
   echo "PUBLIK_ variables in this environment: $(env | grep -c '^PUBLIK_')"
-  system_profiler SPDisplaysDataType 2>/dev/null | grep -E "Resolution|Display Type|Main Display" ; } >>"$C" 2>&1
+  system_profiler SPDisplaysDataType 2>/dev/null | grep -E "Resolution|Display Type|Main Display"; df -h / ; } >>"$C" 2>&1
 # Every window on the screen with its owner process (System Events does not show agent apps or system alerts).
 mkdir -p "$ROOT/w"; WINLIST="$ROOT/w/winlist"
 cat > "$ROOT/w/winlist.swift" <<'SWIFT'
@@ -98,16 +100,19 @@ echo "--- pairs (control)" >>"$C"; tmo 60 osascript -e "$PAIRS_AS" >>"$C" 2>&1 |
 tmo 20 osascript -e 'tell application "Calculator" to quit' >>"$C" 2>&1; sleep 2; pkill -x Calculator 2>/dev/null
 cat "$C"
 
-python3 -I - "$LIST" > "$ROOT/work.tsv" <<'PY'
+python3 -I - "$LIST" "$ONLY" > "$ROOT/work.tsv" <<'PY'
 import json, sys
+only = [x.strip() for x in sys.argv[2].split(",") if x.strip()]
 for a in json.load(open(sys.argv[1])):
-    print("\t".join([a["slug"], a["tag"], a["file"], a["url"], a["sha256"]]))
+    if not only or a["slug"] in only:
+        print("\t".join([a["slug"], a["tag"], a["file"], a["url"], a["sha256"]]))
 PY
+echo "apps in this run: $(wc -l < "$ROOT/work.tsv")"
 
 while IFS=$'\t' read -r -u 3 SLUG TAG FILE URL SHA; do
   LOG="$R/$SLUG.log"; : > "$LOG"; ERR=""
   D="$ROOT/w/$SLUG"; rm -rf "$D"; mkdir -p "$D"; F="$D/$FILE"
-  DL=false; SHA_GOT=""; SHA_OK=false; SIZE=""; VERIFY=false; GK=false; GK_OUT=""; APP=""; NAME=""; BID=""; VER=""; QTN_APP=""
+  DL=false; SHA_GOT=""; SHA_OK=false; SIZE=""; VERIFY=na; GK=false; GK_OUT=""; GK_APP=false; GK_APP_OUT=""; APP=""; NAME=""; BID=""; VER=""; QTN_APP=""
   OPEN_RC=""; OPEN_OUT=""; RUN1=false; RUN2=false; RUN3=false; RUN_BQ=false; RUN_AQ=""; QUIT_OUT=""
   TITLES=""; PAIRS1=""; PAIRS2=""; PAIRS3=""; DIALOG=""; BROWSER=""; SHOTS=""
   WL0=""; WL1=""; WL3=""; WLQ=""; LEFTOVER=""
@@ -122,12 +127,14 @@ while IFS=$'\t' read -r -u 3 SLUG TAG FILE URL SHA; do
     SIZE="$(stat -f %z "$F")"
     SHA_GOT="$(shasum -a 256 "$F" | cut -d' ' -f1)"
     if [ "$SHA_GOT" = "$SHA" ]; then SHA_OK=true; else err "sha256 mismatch: got $SHA_GOT"; fi
-    hdiutil verify "$F" >>"$LOG" 2>&1 </dev/null && VERIFY=true || err "hdiutil verify failed"
+    case "$FILE" in
+    *.dmg)
+    hdiutil verify "$F" >>"$LOG" 2>&1 </dev/null && VERIFY=true || { VERIFY=false; err "hdiutil verify failed"; }
     GK_OUT="$(spctl -a -t open --context context:primary-signature -vv "$F" 2>&1)"; echo "$GK_OUT" >>"$LOG"
     echo "$GK_OUT" | grep -q "accepted" && GK=true
     MNT="$D/mnt"; mkdir -p "$MNT"
     if hdiutil attach -nobrowse -readonly -noautoopen -mountpoint "$MNT" "$F" >>"$LOG" 2>&1 </dev/null; then
-      A="$(find "$MNT" -maxdepth 1 -name '*.app' | head -1)"
+      A="$(find "$MNT" -maxdepth 2 -name '*.app' -not -path '*/.*' | head -1)"
       if [ -n "$A" ]; then
         B="$(basename "$A")"
         # A fresh install: ditto merges into an existing folder, so any older copy goes first.
@@ -135,13 +142,29 @@ while IFS=$'\t' read -r -u 3 SLUG TAG FILE URL SHA; do
         if ditto "$A" "/Applications/$B" 2>>"$LOG"; then APP="/Applications/$B"; else err "ditto failed"; fi
       else err "no .app on the dmg"; fi
       hdiutil detach "$MNT" -quiet -force >>"$LOG" 2>&1
-    else err "hdiutil attach failed"; fi
+    else err "hdiutil attach failed"; fi ;;
+    *.zip)
+      # An app that ships only a mac zip: unpack it as Finder does, then copy the .app to /Applications.
+      X="$D/x"; mkdir -p "$X"
+      ditto -x -k "$F" "$X" 2>>"$LOG" || err "unzip (ditto -x -k) failed"
+      A="$(find "$X" -maxdepth 2 -name '*.app' -not -path '*/__MACOSX/*' | head -1)"
+      if [ -n "$A" ]; then
+        B="$(basename "$A")"
+        [ -e "/Applications/$B" ] && err "an older copy is in /Applications/$B"
+        if ditto "$A" "/Applications/$B" 2>>"$LOG"; then APP="/Applications/$B"; else err "ditto failed"; fi
+      else err "no .app in the zip"; fi ;;
+    *) err "not a dmg or zip" ;;
+    esac
   fi
 
   if [ -n "$APP" ]; then
     # A browser and Finder keep the flag on every file of the copy (as in check.sh).
     xattr -rw com.apple.quarantine "$Q" "$APP" 2>/dev/null
-    NAME="$(basename "$APP" .app)"; PAT="$NAME.app/Contents/MacOS/"
+    NAME="$(basename "$APP" .app)"; NRE="$(printf '%s' "$NAME" | sed 's/[][\.*^$+?(){}|/]/\\&/g')"; PAT="$NRE\.app/Contents/MacOS/"
+    # The Gatekeeper result for the installed app (for a zip, this is the only Gatekeeper result).
+    GK_APP_OUT="$(spctl -a -t exec -vv "$APP" 2>&1)"; echo "$GK_APP_OUT" >>"$LOG"
+    echo "$GK_APP_OUT" | grep -q "accepted" && GK_APP=true
+    case "$FILE" in *.zip) GK="$GK_APP"; GK_OUT="app: $GK_APP_OUT" ;; esac
     BID="$(defaults read "$APP/Contents/Info" CFBundleIdentifier 2>/dev/null)"
     VER="$(defaults read "$APP/Contents/Info" CFBundleShortVersionString 2>/dev/null)"
     QTN_APP="$(xattr -p com.apple.quarantine "$APP" 2>/dev/null)"
@@ -186,13 +209,13 @@ while IFS=$'\t' read -r -u 3 SLUG TAG FILE URL SHA; do
 
     # 4. Quit. Record whether the process ran before the quit; pkill is the fallback.
     running && RUN_BQ=true
-    pgrep -lf "$NAME.app/Contents/" >>"$LOG" 2>&1
+    pgrep -lf "$NRE\.app/Contents/" >>"$LOG" 2>&1
     if [ "$RUN_BQ" = true ]; then
       QUIT_OUT="$(tmo 30 osascript -e "tell application \"$NAME\" to quit" 2>&1)" || err "AppleScript quit failed: $(echo "$QUIT_OUT" | tail -1 | cut -c1-200)"
       sleep 5
     fi
-    if pgrep -f "$NAME.app/Contents/" >/dev/null 2>&1; then
-      RUN_AQ=true; pkill -f "$NAME.app/Contents/"; sleep 2; pkill -KILL -f "$NAME.app/Contents/" 2>/dev/null
+    if pgrep -f "$NRE\.app/Contents/" >/dev/null 2>&1; then
+      RUN_AQ=true; pkill -f "$NRE\.app/Contents/"; sleep 2; pkill -KILL -f "$NRE\.app/Contents/" 2>/dev/null
     else RUN_AQ=false; fi
     # A browser that the app opened by itself would cover the next app: record it and quit it.
     for BR in Safari "Google Chrome" Firefox; do
@@ -205,17 +228,23 @@ while IFS=$'\t' read -r -u 3 SLUG TAG FILE URL SHA; do
     # cover the next app. Record its owner and stop that process. Its button is never clicked.
     WLQ="$(winlist)"; printf -- '--- on-screen windows after the quit\n%s\n' "$WLQ" >>"$LOG"
     for P in $(echo "$WLQ" | grep -o '\[pid [0-9]*\]' | grep -o '[0-9]*' | sort -u); do
-      echo "$WL0" | grep -q "\[pid $P\]" || echo "window owner that was not there before the open: $(ps -p "$P" -o pid=,comm= 2>/dev/null | cut -c1-160)" >>"$LOG"
-    done
-    for OWN in UserNotificationCenter osascript; do
-      if echo "$WLQ" | grep -q "^$OWN \["; then LEFTOVER="${LEFTOVER:+$LEFTOVER,}$OWN"; pkill -x "$OWN"; sleep 2; fi
+      echo "$WL0" | grep -q "\[pid $P\]" && continue
+      CMD="$(ps -p "$P" -o comm= 2>/dev/null)"
+      echo "window owner that was not there before the open: $P $CMD" >>"$LOG"
+      case "$CMD" in
+        */UserNotificationCenter|*/osascript|osascript) ;;          # a system alert process: stop it
+        ""|/System/Library/*|/usr/*|/Library/Apple/*) continue ;;   # another part of macOS: record only
+        # /System/Applications/* (for example System Settings, opened for a permission) is stopped, as an app is.
+      esac
+      LEFTOVER="${LEFTOVER:+$LEFTOVER,}$(basename "$CMD")"; kill "$P" 2>/dev/null; sleep 2; kill -9 "$P" 2>/dev/null
     done
     [ -n "$LEFTOVER" ] && printf -- '--- stopped: %s\n%s\n' "$LEFTOVER" "$(winlist)" >>"$LOG"
+    df -h / | tail -1 >>"$LOG"
   fi
 
   # 5. One JSON line for this app.
   J_SLUG="$SLUG" J_TAG="$TAG" J_FILE="$FILE" J_URL="$URL" J_SIZE="$SIZE" J_SHA_EXP="$SHA" J_SHA_GOT="$SHA_GOT" J_SHA_OK="$SHA_OK" \
-  J_DL="$DL" J_VERIFY="$VERIFY" J_GK="$GK" J_GK_OUT="$GK_OUT" J_APP="$APP" J_BID="$BID" J_VER="$VER" J_QTN="$QTN_APP" \
+  J_DL="$DL" J_VERIFY="$VERIFY" J_GK="$GK" J_GK_OUT="$GK_OUT" J_GK_APP="$GK_APP" J_GK_APP_OUT="$GK_APP_OUT"J_APP="$APP" J_BID="$BID" J_VER="$VER" J_QTN="$QTN_APP" \
   J_OPEN_RC="$OPEN_RC" J_OPEN_OUT="$OPEN_OUT" J_RUN1="$RUN1" J_RUN2="$RUN2" J_RUN3="$RUN3" J_RUN_BQ="$RUN_BQ" J_RUN_AQ="$RUN_AQ" \
   J_TITLES="$TITLES" J_PAIRS1="$PAIRS1" J_PAIRS2="$PAIRS2" J_PAIRS3="$PAIRS3" J_DIALOG="$DIALOG" J_BROWSER="$BROWSER" \
   J_WL0="$WL0" J_WL1="$WL1" J_WL3="$WL3" J_WLQ="$WLQ" J_LEFTOVER="$LEFTOVER" \
@@ -226,7 +255,8 @@ b = lambda k: e(k) == "true"
 row = {
     "slug": e("SLUG"), "tag": e("TAG"), "file": e("FILE"), "url": e("URL"), "size": e("SIZE"),
     "downloaded": b("DL"), "sha256_expected": e("SHA_EXP"), "sha256_got": e("SHA_GOT"), "sha256_verified": b("SHA_OK"),
-    "hdiutil_verify": b("VERIFY"), "gatekeeper_accepted": b("GK"), "gatekeeper_output": e("GK_OUT"),
+    "hdiutil_verify": e("VERIFY"), "gatekeeper_accepted": b("GK"), "gatekeeper_output": e("GK_OUT"),
+    "gatekeeper_app_accepted": b("GK_APP"), "gatekeeper_app_output": e("GK_APP_OUT"),
     "app": e("APP"), "bundle_id": e("BID"), "version": e("VER"), "quarantine_on_app": e("QTN"),
     "open_rc": e("OPEN_RC"), "open_output": e("OPEN_OUT"),
     "process_running_at_15s": b("RUN1"), "process_running_at_30s": b("RUN2"), "process_running_after_dialog_open": b("RUN3"),
