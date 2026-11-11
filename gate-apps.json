@@ -263,11 +263,11 @@
   {
     "slug": "voicestudio",
     "repo": "Blueturboguy07/VoiceStudio",
-    "tag": "v0.5.7-publik.1",
+    "tag": "v0.5.7-publik.2",
     "file": "VoiceStudio-0.5.7-mac-arm64.dmg",
-    "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.1/VoiceStudio-0.5.7-mac-arm64.dmg",
-    "size": 280513155,
-    "sha256": "4477f19e41a6e93ff629edd34a49f7640ddcc73d6ad44e5275815bfa323a142b"
+    "url": "https://github.com/Blueturboguy07/VoiceStudio/releases/download/v0.5.7-publik.2/VoiceStudio-0.5.7-mac-arm64.dmg",
+    "size": 280658673,
+    "sha256": "1f9b6fec8b3c35774aed382db282f7789a65ae1c7baedc8b19971b719ef3d78d"
   },
   {
     "slug": "whimprflow",
