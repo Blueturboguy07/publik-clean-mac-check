@@ -281,10 +281,10 @@
   {
     "slug": "wordcraft",
     "repo": "Blueturboguy07/wordcraft",
-    "tag": "v0.16.1-publik.8",
+    "tag": "v0.16.1-publik.9",
     "file": "wordcraft-0.16.1-macos-universal.dmg",
-    "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.16.1-publik.8/wordcraft-0.16.1-macos-universal.dmg",
-    "size": 132080400,
-    "sha256": "9e9bd7a9c18f4abedc9f9ff3d1cdd135379ebbbc3eddcf431c2933824b07a96c"
+    "url": "https://github.com/Blueturboguy07/wordcraft/releases/download/v0.16.1-publik.9/wordcraft-0.16.1-macos-universal.dmg",
+    "size": 131914575,
+    "sha256": "aa500b8d99b6eeebd6cc8c6d887e8242938ed63aec7931afbf333e49aea7a4e9"
   }
 ]
