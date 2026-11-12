@@ -110,11 +110,11 @@
   {
     "slug": "gridcraft",
     "repo": "Blueturboguy07/gridcraft",
-    "tag": "v0.17.1-publik.9",
+    "tag": "v0.17.1-publik.10",
     "file": "gridcraft-0.17.1-macos-universal.dmg",
-    "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.17.1-publik.9/gridcraft-0.17.1-macos-universal.dmg",
-    "size": 87440736,
-    "sha256": "53e18ed12d5513a7bcb1581a069d745cb8b28aeef78d6f24ffeddb7bd53ec2b2"
+    "url": "https://github.com/Blueturboguy07/gridcraft/releases/download/v0.17.1-publik.10/gridcraft-0.17.1-macos-universal.dmg",
+    "size": 87395135,
+    "sha256": "96730058df9c4185aafbf5699a5e48c092e4186a0f0b9b54dacea31659e111c3"
   },
   {
     "slug": "gspot",
