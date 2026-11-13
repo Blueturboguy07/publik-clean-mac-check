@@ -254,11 +254,11 @@
   {
     "slug": "vectorcraft",
     "repo": "Blueturboguy07/vectorcraft",
-    "tag": "v0.22.1-publik.8",
+    "tag": "v0.22.1-publik.9",
     "file": "vectorcraft-0.22.1-macos-universal.dmg",
-    "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.22.1-publik.8/vectorcraft-0.22.1-macos-universal.dmg",
-    "size": 164443058,
-    "sha256": "68407d6eff9f4ae9db15e483ca23721d202d88fe4f0d0638d72d01d9caea0971"
+    "url": "https://github.com/Blueturboguy07/vectorcraft/releases/download/v0.22.1-publik.9/vectorcraft-0.22.1-macos-universal.dmg",
+    "size": 164388470,
+    "sha256": "c0375b2182e4b142ecc13b8414594ed31ae231290d98798f260b217d4f58279e"
   },
   {
     "slug": "voicestudio",
