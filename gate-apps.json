@@ -191,11 +191,11 @@
   {
     "slug": "pdfcraft",
     "repo": "Blueturboguy07/pdfcraft",
-    "tag": "v0.19.1-publik.9",
+    "tag": "v0.19.1-publik.10",
     "file": "pdfcraft-0.19.1-macos-universal.dmg",
-    "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.19.1-publik.9/pdfcraft-0.19.1-macos-universal.dmg",
-    "size": 129649980,
-    "sha256": "d0bc7a78ea4c2076766c746cf804d82ab4304663e0223d12a238261d21cbb8cd"
+    "url": "https://github.com/Blueturboguy07/pdfcraft/releases/download/v0.19.1-publik.10/pdfcraft-0.19.1-macos-universal.dmg",
+    "size": 129672557,
+    "sha256": "635ee5085b59d458aa0dc53b179d993c7c3f1c98e1642492d04867de95b0ea74"
   },
   {
     "slug": "photocraft",
