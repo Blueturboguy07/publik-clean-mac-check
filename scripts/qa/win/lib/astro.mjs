@@ -9,7 +9,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { chromium } from 'playwright-core'
-import { listTargets } from './cdp.mjs'
+import { browserWsUrl, cdpConnect, listTargets } from './cdp.mjs'
 import { sleep, waitFor } from './rows.mjs'
 import { appProcs, closeAppWindows, INSTALL_DIR } from './win.mjs'
 
@@ -117,8 +117,8 @@ export function launchShortcut(lnk) {
 }
 
 /** Playwright over the managed CDP port. */
-export async function connect(session) {
-  const browser = await chromium.connectOverCDP(`http://127.0.0.1:${session.cdp}`, { timeout: 60_000 })
+export async function connect(session, { timeout = 60_000 } = {}) {
+  const browser = await chromium.connectOverCDP(`http://127.0.0.1:${session.cdp}`, { timeout })
   session.browser = browser
   session.context = browser.contexts()[0]
   return session
@@ -298,4 +298,124 @@ export function listTree(dir, max = 20_000) {
   }
   walk(dir, '')
   return out
+}
+
+/** Crashpad dumps of a profile (each renderer or browser crash leaves one). */
+export function crashDumps(profile) {
+  const out = []
+  for (const sub of ['reports', 'pending', 'completed', 'new']) {
+    const d = path.join(profile, 'Crashpad', sub)
+    if (!fs.existsSync(d)) continue
+    for (const f of fs.readdirSync(d)) if (/\.dmp$/i.test(f)) out.push(`${sub}\\${f}`)
+  }
+  return out
+}
+
+/**
+ * Open a URL in a new tab with raw CDP (no Playwright) and watch for a
+ * renderer crash. Phases run in order: load -> screenshot -> title -> ax
+ * (accessibility-tree text) -> extra (an optional expression, awaited) -> walker (the shadow-DOM text walk).
+ * crashPhase tells whether the page crashed on its own (load) or under a
+ * harness script. The tab is closed at the end unless keepOpen.
+ */
+export async function cdpPageProbe(cdpPort, url, { waitMs = 6000, shotFile = null, extra = null, walk = true, ax = false, keepOpen = false, activate = true } = {}) {
+  const { ws } = await browserWsUrl(cdpPort)
+  const bs = await cdpConnect(ws)
+  const out = { url, crashed: false, crashPhase: null }
+  const t0 = Date.now()
+  let phase = 'load'
+  let targetId = null
+  let sid = null
+  const off = bs.on((m) => {
+    const hit =
+      (m.method === 'Target.targetCrashed' && targetId && m.params?.targetId === targetId) ||
+      (m.method === 'Inspector.targetCrashed' && sid && m.sessionId === sid)
+    if (hit && !out.crashed) {
+      out.crashed = true
+      out.crashPhase = phase
+      out.crashAtMs = Date.now() - t0
+      out.crashInfo = m.params ?? null
+    }
+  })
+  const ev = async (expression, ms = 20_000) => {
+    const r = await bs.send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true }, sid, ms)
+    if (r?.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description ?? r.exceptionDetails.text)
+    return r?.result?.value
+  }
+  try {
+    await bs.send('Target.setDiscoverTargets', { discover: true })
+    ;({ targetId } = await bs.send('Target.createTarget', { url }))
+    out.targetId = targetId
+    ;({ sessionId: sid } = await bs.send('Target.attachToTarget', { targetId, flatten: true }))
+    await bs.send('Inspector.enable', {}, sid).catch(() => null)
+    await bs.send('Page.enable', {}, sid).catch(() => null)
+    if (activate) await bs.send('Target.activateTarget', { targetId }).catch(() => null)
+    await sleep(waitMs)
+    if (shotFile && !out.crashed) {
+      phase = 'screenshot'
+      try {
+        const r = await bs.send('Page.captureScreenshot', { format: 'png' }, sid, 20_000)
+        fs.writeFileSync(shotFile, Buffer.from(r.data, 'base64'))
+        out.shot = shotFile
+      } catch (e) {
+        out.shotError = e.message
+      }
+    }
+    if (!out.crashed) {
+      phase = 'title'
+      try {
+        out.title = await ev('document.title')
+        out.href = await ev('location.href')
+      } catch (e) {
+        out.evalError = e.message
+      }
+    }
+    if (ax && !out.crashed) {
+      // Page text from the accessibility tree: no page script runs.
+      phase = 'ax'
+      try {
+        const r = await bs.send('Accessibility.getFullAXTree', {}, sid, 30_000)
+        const names = []
+        for (const n of r?.nodes ?? []) {
+          const v = n.name?.value
+          if (typeof v === 'string' && v.trim() && !n.ignored && names[names.length - 1] !== v.trim()) names.push(v.trim())
+        }
+        out.axText = names.join('\n')
+      } catch (e) {
+        out.axError = e.message
+      }
+    }
+    if (extra && !out.crashed) {
+      phase = 'extra'
+      try {
+        out.extra = await ev(extra, 30_000)
+      } catch (e) {
+        out.extraError = e.message
+      }
+    }
+    if (walk && !out.crashed) {
+      phase = 'walker'
+      try {
+        out.text = await ev(`(${VISIBLE_TEXT_FN.toString()})()`, 30_000)
+      } catch (e) {
+        out.walkError = e.message
+      }
+      await sleep(1500)
+    }
+  } catch (e) {
+    out.error = e.message
+  } finally {
+    off()
+    out.ms = Date.now() - t0
+    if (!keepOpen && targetId) await bs.send('Target.closeTarget', { targetId }).catch(() => null)
+    bs.close()
+  }
+  return out
+}
+
+/** One-line text of a probe for row output. */
+export function probeText(p) {
+  if (!p) return 'not run'
+  const crash = p.crashed ? `CRASHED during ${p.crashPhase} after ${(p.crashAtMs / 1000).toFixed(1)} s` : 'no crash'
+  return `${p.url}: ${crash}; title "${p.title ?? ''}"${p.error ? `; error ${p.error}` : ''}`
 }
