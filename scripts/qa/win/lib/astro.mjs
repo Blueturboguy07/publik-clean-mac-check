@@ -11,7 +11,7 @@ import path from 'node:path'
 import { chromium } from 'playwright-core'
 import { browserWsUrl, cdpConnect, listTargets } from './cdp.mjs'
 import { sleep, waitFor } from './rows.mjs'
-import { appProcs, closeAppWindows, INSTALL_DIR } from './win.mjs'
+import { appProcs, appWindows, closeAppWindows, INSTALL_DIR } from './win.mjs'
 
 export const ASTRO_EXE = process.env.ASTRO_EXE || path.join(INSTALL_DIR, 'chrome.exe')
 export const EXT_ID = 'kofbmbngmnnpmopgbhpbajhnnnoflolg'
@@ -215,14 +215,28 @@ export async function quit(session, { waitMs = 45_000 } = {}) {
   const close = closeAppWindows()
   const t0 = Date.now()
   let left = before
+  // A person closes a window that opens after the first close too (for
+  // example the main window after an onboarding window). Up to 3 more rounds.
+  const rounds = [{ atMs: 0, titles: close?.titles ?? [] }]
+  let lastClose = Date.now()
   while (Date.now() - t0 < waitMs) {
     await sleep(1500)
     left = appProcs()
     if (left.length === 0) break
+    if (rounds.length < 4 && Date.now() - lastClose > 6000) {
+      const open = appWindows().filter((w) => /Chrome_WidgetWin/.test(w.class) && w.title)
+      if (open.length) {
+        const c = closeAppWindows()
+        rounds.push({ atMs: Date.now() - t0, titles: c?.titles ?? open.map((w) => w.title) })
+        lastClose = Date.now()
+      }
+    }
   }
   const res = {
     windowsClosed: close?.closed ?? 0,
     closedTitles: close?.titles ?? [],
+    closeRounds: rounds,
+    windowsLeft: left.length ? appWindows().map((w) => `${w.title || '(no title)'} [${w.class}]`) : [],
     procsBefore: before.map((p) => `${p.name}(${p.pid})`),
     // No process before the close means the browser was already gone: not a clean quit to measure.
     alreadyGone: before.length === 0,

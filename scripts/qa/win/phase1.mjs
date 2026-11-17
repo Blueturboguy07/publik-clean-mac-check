@@ -79,7 +79,7 @@ const recordWindows = (where) => {
 const quitText = (q) =>
   q.alreadyGone
     ? 'no Astro process was running when the quit started (the browser had already exited)'
-    : `closed ${q.windowsClosed} window(s); processes before: ${q.procsBefore.join(', ')}; ${q.clean ? `all gone in ${(q.ms / 1000).toFixed(1)} s` : `LEFT after ${(q.ms / 1000).toFixed(0)} s: ${q.leftovers.join(', ')}`}`
+    : `closed ${q.windowsClosed} window(s)${(q.closeRounds?.length ?? 1) > 1 ? `; windows opened again and were closed ${q.closeRounds.length - 1} more time(s): ${q.closeRounds.slice(1).map((r) => `${(r.atMs / 1000).toFixed(0)} s [${r.titles.join(', ')}]`).join(' ')}` : ''}; processes before: ${q.procsBefore.length}; ${q.clean ? `all gone in ${(q.ms / 1000).toFixed(1)} s` : `LEFT after ${(q.ms / 1000).toFixed(0)} s: ${q.leftovers.join(', ')}; windows left: ${(q.windowsLeft ?? []).join(' | ') || 'none'}`}`
 const shotDesktop = (ctx, name) => {
   const r = desktopShot(ctx.file(name))
   if (r?.error) ctx.note(`desktop screenshot failed: ${r.error}`)
@@ -853,6 +853,7 @@ await runRow(
         actual: `the default profile never started. Shortcut via explorer.exe: chrome.exe processes after 45 s ${diag.attempts[0].procs.length}, windows ${diag.attempts[0].windows.length}. chrome.exe with no profile flag: ${a2 ? (typeof a2.exit === 'object' ? `exited after ${(a2.exit.afterMs / 1000).toFixed(1)} s, code ${a2.exit.codeHex}` : 'still running, no config.json in 60 s') : 'not run'}; user data dirs: ${diag.defaultUserData ? `${udRoot} (Crashpad dumps ${diag.defaultUserData.dumps.length})` : 'none'}; crash events: ${diag.appErrors.length ? diag.appErrors.map((e) => e.message.split(/\r?\n/).slice(0, 3).join(' ')).join(' | ').slice(0, 400) : 'none'}`,
       }
     }
+    const configMs = Date.now() - t0
     const userData = path.dirname(path.dirname(found.file))
     brand.defaultUserData = userData
     const S3 = { profile: userData, cdp: found.cfg.ports.cdp, server: found.cfg.ports.server }
@@ -868,6 +869,16 @@ await runRow(
     const firstT = targets.find((t) => t.type === 'page')
     const png = firstT ? await screenshotTarget(firstT.webSocketDebuggerUrl).catch(() => null) : null
     if (png) fs.writeFileSync(ctx.file('first-tab.png'), png)
+    // First run of the default profile shows onboarding: do what a person does, "Skip for now".
+    let skip = null
+    if (targets.some((t) => t.type === 'page' && t.url.startsWith('chrome://browseros-onboarding'))) {
+      const click = uiaClick('Skip for now', 15)
+      await sleep(7000)
+      const t2 = await listTargets(S3.cdp).catch(() => [])
+      skip = { click, pages: t2.filter((t) => t.type === 'page').map((t) => t.url), windows: appWindows().map((w) => w.title) }
+      ctx.writeJson('after-skip.json', skip)
+      shotDesktop(ctx, 'desktop-after-skip.png')
+    }
     const q = await A.quit(S3)
     ctx.writeJson('quit.json', q)
     const viaShortcut = how.startsWith('Start-menu')
@@ -875,7 +886,7 @@ await runRow(
     return {
       result: ok ? 'pass' : 'fail',
       notes: viaShortcut ? '' : 'the Start-menu shortcut did not start the browser; chrome.exe with no flags did (see diagnosis.json)',
-      actual: `started by ${how}; user data dir: ${userData}; config after ${((Date.now() - t0) / 1000).toFixed(0)} s${diag.clicked ? ` (only after clicking first-run button "${diag.clicked.name}")` : ''}; /health ${h.health?.status}; tabs: ${targets.filter((t) => t.type === 'page').map((t) => t.url).join(' , ')}; windows: ${wins.map((w) => w.title).join(' | ')}; quit: ${quitText(q)}`,
+      actual: `started by ${how}; ${skip ? `onboarding shown; "Skip for now" ${skip.click?.ok ? 'clicked' : 'not found'} -> tabs ${skip.pages.join(' , ') || 'none'}, windows ${skip.windows.join(' | ') || 'none'}; ` : ''}user data dir: ${userData}; config.json within ${(configMs / 1000).toFixed(0)} s${diag.clicked ? ` (only after clicking first-run button "${diag.clicked.name}")` : ''}; /health ${h.health?.status}; tabs: ${targets.filter((t) => t.type === 'page').map((t) => t.url).join(' , ')}; windows: ${wins.map((w) => w.title).join(' | ')}; quit: ${quitText(q)}`,
     }
   },
 )
