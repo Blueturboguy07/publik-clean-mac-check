@@ -57,6 +57,14 @@ export const appCmdlines = () => {
   const p = win('cmdlines')
   return Array.isArray(p) ? p : []
 }
+export const appListen = () => {
+  const p = win('listen')
+  return Array.isArray(p) ? p : []
+}
+export const appErrors = (sinceSec = 600) => {
+  const p = win('apperrors', { TimeoutSec: sinceSec })
+  return Array.isArray(p) ? p : []
+}
 export const sendKeys = (keys) => win('keys', { Keys: keys })
 export const uiaClick = (name, timeoutSec = 20) => win('uia-click', { Name: name, TimeoutSec: timeoutSec }, (timeoutSec + 30) * 1000)
 export const uiaDump = () => win('uia-dump', {}, 180_000)

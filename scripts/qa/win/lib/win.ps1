@@ -7,7 +7,7 @@
 #
 #   powershell -NoProfile -ExecutionPolicy Bypass -File win.ps1 -Action shot -Out C:\x.png
 #
-# Actions: shot, windows, procs, cmdlines, close, focus, keys, uia-click, uia-dump,
+# Actions: shot, windows, procs, cmdlines, listen, apperrors, close, focus, keys, uia-click, uia-dump,
 #          netsample, dns, dns-clear, lnk, verinfo, reg
 param(
   [Parameter(Mandatory = $true)][string]$Action,
@@ -154,6 +154,37 @@ switch ($Action) {
       if (-not $exe -or -not $exe.StartsWith($Root, [StringComparison]::OrdinalIgnoreCase)) { continue }
       $rows += [ordered]@{ pid = [int]$p.ProcessId; ppid = [int]$p.ParentProcessId; name = [string]$p.Name; cmd = [string]$p.CommandLine }
     }
+    Emit @($rows)
+  }
+  'listen' {
+    # Listening TCP sockets of the app's processes (address + port).
+    $ids = @{}
+    foreach ($p in (Get-Process -ErrorAction SilentlyContinue)) {
+      $pp = $null
+      try { $pp = $p.Path } catch { }
+      if ($pp -and $pp.StartsWith($Root, [StringComparison]::OrdinalIgnoreCase)) { $ids[[int]$p.Id] = $p.ProcessName }
+    }
+    $rows = @()
+    foreach ($c in @(Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue)) {
+      if ($ids.ContainsKey([int]$c.OwningProcess)) {
+        $rows += [ordered]@{ address = [string]$c.LocalAddress; port = [int]$c.LocalPort; pid = [int]$c.OwningProcess; name = $ids[[int]$c.OwningProcess] }
+      }
+    }
+    Emit @($rows)
+  }
+  'apperrors' {
+    # Application-log crash events (Application Error / WER) of the last TimeoutSec seconds.
+    $since = (Get-Date).AddSeconds(-1 * [Math]::Max($TimeoutSec, 60))
+    $rows = @()
+    try {
+      $ev = @(Get-WinEvent -FilterHashtable @{ LogName = 'Application'; StartTime = $since } -ErrorAction SilentlyContinue |
+        Where-Object { $_.ProviderName -in @('Application Error', 'Windows Error Reporting', 'Application Hang') })
+      foreach ($e in $ev) {
+        $msg = [string]$e.Message
+        if ($msg -notmatch '(?i)chrome|browseros|astro') { continue }
+        $rows += [ordered]@{ time = $e.TimeCreated.ToString('o'); id = [int]$e.Id; provider = [string]$e.ProviderName; message = $msg.Substring(0, [Math]::Min(900, $msg.Length)) }
+      }
+    } catch { }
     Emit @($rows)
   }
   'close' {
